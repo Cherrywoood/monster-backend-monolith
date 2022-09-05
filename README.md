@@ -8,4 +8,4 @@ Team: <br>
 [Polina Popova](https://github.com/Cherrywoood) <br>
 
 
-### Архитектура БД
+### Database architecture
