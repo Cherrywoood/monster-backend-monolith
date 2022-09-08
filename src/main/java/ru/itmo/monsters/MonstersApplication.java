@@ -1,4 +1,4 @@
-package com.example.highloadsystemslab1;
+package ru.itmo.monsters;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
