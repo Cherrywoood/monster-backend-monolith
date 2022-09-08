@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HighLoadSystemsLab1Application {
+public class MonstersApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HighLoadSystemsLab1Application.class, args);
+        SpringApplication.run(MonstersApplication.class, args);
     }
 
 }
