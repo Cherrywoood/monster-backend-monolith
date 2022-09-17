@@ -1,31 +1,16 @@
 package ru.itmo.monsters.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
     private String login;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private RoleDTO role;
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public RoleDTO getRole() {
-        return role;
-    }
-
-    public void setRole(RoleDTO role) {
-        this.role = role;
-    }
 }
