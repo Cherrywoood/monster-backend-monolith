@@ -1,4 +1,4 @@
-package ru.itmo.monsters.model.entity;
+package ru.itmo.monsters.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;

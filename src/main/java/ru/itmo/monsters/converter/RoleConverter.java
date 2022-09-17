@@ -3,8 +3,8 @@ package ru.itmo.monsters.converter;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import ru.itmo.monsters.model.dto.RoleDTO;
-import ru.itmo.monsters.model.entity.RoleEntity;
+import ru.itmo.monsters.dto.RoleDTO;
+import ru.itmo.monsters.model.RoleEntity;
 @RequiredArgsConstructor
 @Component
 public class RoleConverter {

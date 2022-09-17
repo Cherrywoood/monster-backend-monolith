@@ -1,4 +1,4 @@
-package ru.itmo.monsters.model.dto;
+package ru.itmo.monsters.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
