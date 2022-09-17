@@ -1,4 +1,4 @@
-package ru.itmo.monsters.model.dto;
+package ru.itmo.monsters.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

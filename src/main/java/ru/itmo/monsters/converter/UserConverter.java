@@ -3,8 +3,8 @@ package ru.itmo.monsters.converter;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import ru.itmo.monsters.model.dto.UserDTO;
-import ru.itmo.monsters.model.entity.UserEntity;
+import ru.itmo.monsters.dto.UserDTO;
+import ru.itmo.monsters.model.UserEntity;
 @RequiredArgsConstructor
 @Component
 public class UserConverter {
