@@ -1,6 +1,5 @@
 CREATE TYPE GENDER AS ENUM ('male', 'female');
 CREATE TYPE JOB AS ENUM ('scarer', 'cleaner','scare assistant','disinfector','recruiter');
-CREATE TYPE CHARACTERISTIC AS ENUM ('spider', 'snake','needles','toothy','loud','giant','insect');
 
 CREATE TABLE IF NOT EXISTS ROLES
 (
@@ -20,16 +19,30 @@ CREATE TABLE IF NOT EXISTS USERS
 
 CREATE TABLE IF NOT EXISTS MONSTER
 (
-    ID             UUID PRIMARY KEY,
-    NAME           VARCHAR(16)                                                    NOT NULL,
-    GENDER         GENDER                                                         NOT NULL,
-    CHARACTERISTIC CHARACTERISTIC                                                 NOT NULL,
-    DATE_OF_BIRTH  DATE                                                           NOT NULL,
-    POSITION       JOB                                                            NOT NULL,
-    EMAIL          VARCHAR(30)                                                    NOT NULL UNIQUE,
-    SALARY         INT                                                            NOT NULL,
-    USER_ID        UUID REFERENCES USERS (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    ID            UUID PRIMARY KEY,
+    NAME          VARCHAR(16)                                                    NOT NULL,
+    GENDER        GENDER                                                         NOT NULL,
+    DATE_OF_BIRTH DATE                                                           NOT NULL,
+    POSITION      JOB                                                            NOT NULL,
+    EMAIL         VARCHAR(30)                                                    NOT NULL UNIQUE,
+    SALARY        INT                                                            NOT NULL,
+    USER_ID       UUID REFERENCES USERS (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
     CHECK ((NAME != '') AND (Email != '') AND (SALARY > 0) AND (DATE_OF_BIRTH < CURRENT_DATE))
+);
+
+CREATE TABLE IF NOT EXISTS REWARD
+(
+    ID            UUID PRIMARY KEY,
+    BALLOON_COUNT INT NOT NULL UNIQUE,
+    MONEY         INT NOT NULL,
+    CHECK ((BALLOON_COUNT > 0) AND (MONEY > 0))
+);
+
+CREATE TABLE IF NOT EXISTS MONSTER_REWARD
+(
+    MONSTER_ID UUID REFERENCES MONSTER (ID) ON DELETE NO ACTION ON UPDATE CASCADE,
+    REWARD_ID  UUID REFERENCES REWARD (ID) ON DELETE NO ACTION ON UPDATE CASCADE,
+    PRIMARY KEY (MONSTER_ID, REWARD_ID)
 );
 
 CREATE TABLE IF NOT EXISTS DOOR
