@@ -1,4 +1,4 @@
-package ru.itmo.monsters.converter;
+package ru.itmo.monsters.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
