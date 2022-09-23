@@ -7,14 +7,14 @@ import ru.itmo.monsters.dto.UserDTO;
 import ru.itmo.monsters.model.UserEntity;
 @RequiredArgsConstructor
 @Component
-public class UserConverter {
+public class UserMapper {
     private final ModelMapper modelMapper;
 
-    public UserDTO convertEntityToDto(UserEntity userEntity) {
+    public UserDTO mapEntityToDto(UserEntity userEntity) {
         return modelMapper.map(userEntity, UserDTO.class);
     }
 
-    public UserEntity convertDtoToEntity(UserDTO userDTO) {
+    public UserEntity mapDtoToEntity(UserDTO userDTO) {
         return modelMapper.map(userDTO, UserEntity.class);
     }
 
