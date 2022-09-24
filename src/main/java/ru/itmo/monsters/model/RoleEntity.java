@@ -2,6 +2,8 @@ package ru.itmo.monsters.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +26,8 @@ public class RoleEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @ToString.Exclude
     private List<UserEntity> users;
 
