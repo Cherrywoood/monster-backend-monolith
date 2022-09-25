@@ -10,7 +10,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestControllerAdvice
@@ -52,7 +51,7 @@ public class ResponseExceptionHandler {
                 .map(fieldError ->
                         new Violation(fieldError.getField(), fieldError.getDefaultMessage())
                 )
-                .collect(Collectors.toList());
+                .toList();
 
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST,
