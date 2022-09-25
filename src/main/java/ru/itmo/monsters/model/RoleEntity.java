@@ -6,6 +6,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,6 +26,8 @@ public class RoleEntity {
     private UUID id;
 
     @Column(name = "name")
+    @NotBlank(message = "cannot be null, empty or whitespace")
+    @Size(min = 4, max = 16, message = "must be between 4 and 16 characters")
     private String name;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)

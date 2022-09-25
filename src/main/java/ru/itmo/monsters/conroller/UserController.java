@@ -8,6 +8,7 @@ import ru.itmo.monsters.mapper.UserMapper;
 import ru.itmo.monsters.model.UserEntity;
 import ru.itmo.monsters.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,11 +20,9 @@ public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
 
-    //TODO: http ответы не забыть
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO save(@RequestBody UserDTO userDTO) {
+    public UserDTO save(@Valid @RequestBody UserDTO userDTO) {
         return mapper.mapEntityToDto(userService.save(userDTO));
     }
 
