@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 public class ErrorMessage {
@@ -11,6 +12,8 @@ public class ErrorMessage {
     private int status;
     private String error;
     private String message;
+
+    private List<Violation> violations;
     private String path;
 
     public ErrorMessage(HttpStatus httpStatus, String message, String path) {
@@ -19,5 +22,10 @@ public class ErrorMessage {
         this.error = httpStatus.getReasonPhrase();
         this.message = message;
         this.path = path.substring(path.indexOf("/"));
+    }
+
+    public ErrorMessage(HttpStatus httpStatus, String message, String path, List<Violation> violations) {
+        this(httpStatus, message, path);
+        this.violations = violations;
     }
 }
