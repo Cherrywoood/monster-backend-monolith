@@ -1,13 +1,17 @@
 package ru.itmo.monsters.model;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itmo.monsters.enums.Gender;
+import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.auth.UserEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
@@ -15,8 +19,9 @@ import java.util.UUID;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "monster")
 public class MonsterEntity {
 
@@ -25,40 +30,42 @@ public class MonsterEntity {
     @Column(name = "id")
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "shouldn't be null")
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-    @NotNull
+    @NotNull(message = "shouldn't be null")
     @Enumerated(EnumType.STRING)
-    @Column(name = "position")
-    private Position position;
+    @Column(name = "job")
+    private Job job;
 
-    @NotEmpty(message = "Name shouldn't be empty")
+    @NotBlank(message = "shouldn't be empty")
+    @Size(max = 16, message = "shouldn't exceed 16 characters")
     @Column(name = "name")
     private String name;
 
-    @NotNull
+    @NotNull(message = "shouldn't be null")
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @NotNull
+    @NotNull(message = "shouldn't be null")
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
 
-    @NotNull
-    @Size(max = 30, message = "Email size shouldn't exceed 30 characters")
+    @NotBlank(message = "shouldn't be null")
+    @Size(max = 30, message = "shouldn't exceed 30 characters")
+    @Email
     @Column(name = "email")
     private String email;
 
-    @NotNull
-    @Size(message = "Salary shouldn't be less than 0")
+    @NotNull(message = "shouldn't be null")
+    @Size(message = "shouldn't be less than 0")
     @Column(name = "salary")
     private int salary;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "monster_rewards",
             joinColumns = @JoinColumn(name = "monster_id"),
@@ -66,14 +73,7 @@ public class MonsterEntity {
     )
     private List<RewardEntity> rewards;
 
-    @OneToMany(mappedBy = "monsterEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "monsterEntity")
     private List<FearActionEntity> fearActions;
 
-    public enum Gender{
-        MALE, FEMALE
-    }
-
-    public enum Position{
-        SCARER, CLEANER, SCARE_ASSISTANT, DISINFECTOR, RECRUITER
-    }
 }
