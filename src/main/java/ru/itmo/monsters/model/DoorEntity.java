@@ -1,6 +1,7 @@
 package ru.itmo.monsters.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,4 +15,7 @@ public class DoorEntity {
 
     @Column(name = "is_active", nullable = false)
     private boolean is_active = false;
+
+    @OneToMany(mappedBy = "doorEntity")
+    private List<FearActionEntity> fearActions;
 }
