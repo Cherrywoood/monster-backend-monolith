@@ -1,13 +1,11 @@
 package ru.itmo.monsters.model;
 
-import ru.itmo.monsters.model.DoorEntity;
-
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "infected_thing")
-public class InfectedThing {
+public class InfectedThingEntity {
 
     @Id
     @Column(name = "id")
