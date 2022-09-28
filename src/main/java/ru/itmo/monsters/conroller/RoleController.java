@@ -2,6 +2,7 @@ package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.RoleDTO;
 import ru.itmo.monsters.mapper.RoleMapper;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/roles")
 public class RoleController {
     private final RoleService roleService;
