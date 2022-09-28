@@ -30,7 +30,6 @@ public class UserEntity {
 
     @Column(name = "password")
     @NotBlank(message = "cannot be null, empty or whitespace")
-    @Size(min = 5, message = "must be more than 5 characters")
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)
