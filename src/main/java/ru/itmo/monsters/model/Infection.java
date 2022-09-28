@@ -1,7 +1,5 @@
 package ru.itmo.monsters.model;
 
-import ru.itmo.monsters.model.InfectedThing;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.UUID;

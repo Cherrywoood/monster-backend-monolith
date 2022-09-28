@@ -1,7 +1,5 @@
 package ru.itmo.monsters.model;
 
-import ru.itmo.monsters.model.DoorEntity;
-
 import javax.persistence.*;
 import java.util.UUID;
 
