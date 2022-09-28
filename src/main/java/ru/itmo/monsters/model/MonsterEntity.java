@@ -3,7 +3,6 @@ package ru.itmo.monsters.model;
 import lombok.*;
 import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.enums.Job;
-import ru.itmo.monsters.model.auth.UserEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -66,7 +65,7 @@ public class MonsterEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "monster_rewards",
+            name = "monster_reward",
             joinColumns = @JoinColumn(name = "monster_id"),
             inverseJoinColumns = @JoinColumn(name = "reward_id")
     )

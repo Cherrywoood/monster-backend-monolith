@@ -1,9 +1,7 @@
 package ru.itmo.monsters.dto;
 
 import lombok.Data;
-import ru.itmo.monsters.model.InfectedThing;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.UUID;
 
