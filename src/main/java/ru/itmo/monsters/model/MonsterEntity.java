@@ -1,9 +1,6 @@
 package ru.itmo.monsters.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.auth.UserEntity;
@@ -17,11 +14,13 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Data
-@Entity
-@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "monster")
 public class MonsterEntity {
 

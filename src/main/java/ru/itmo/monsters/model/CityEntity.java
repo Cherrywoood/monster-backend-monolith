@@ -1,9 +1,6 @@
 package ru.itmo.monsters.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,11 +8,13 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 
-@Data
-@Entity
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "city")
 public class CityEntity {
 
