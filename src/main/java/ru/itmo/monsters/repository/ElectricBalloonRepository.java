@@ -2,6 +2,7 @@ package ru.itmo.monsters.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.itmo.monsters.model.CityEntity;
 import ru.itmo.monsters.model.ElectricBalloonEntity;
@@ -16,13 +17,13 @@ public interface ElectricBalloonRepository extends JpaRepository<ElectricBalloon
     @Query("select e from ElectricBalloonEntity e " +
             "join FearActionEntity " +
             "on e.fearActionEntity=FearActionEntity.id " +
-            "where FearActionEntity.date=?1")
-    Optional<ElectricBalloonEntity> findAllBalloonsFallenByDate(Date date);
+            "where FearActionEntity.date=:date")
+    Optional<ElectricBalloonEntity> findAllBalloonsFallenByDate(@Param("date") Date date);
 
     @Query("select e from ElectricBalloonEntity e " +
             "join FearActionEntity " +
             "on e.fearActionEntity=FearActionEntity.id " +
-            "where FearActionEntity.date=?1 " +
-            "and e.cityEntity=?2")
-    Optional<ElectricBalloonEntity> findAllBalloonsFallenByDateAndCity(Date date, CityEntity city);
+            "where FearActionEntity.date=:date " +
+            "and e.cityEntity=:city")
+    Optional<ElectricBalloonEntity> findAllBalloonsFallenByDateAndCity(@Param("date") Date date, @Param("city") CityEntity city);
 }

@@ -2,6 +2,7 @@ package ru.itmo.monsters.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.MonsterEntity;
@@ -18,13 +19,13 @@ public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
     @Query("select m from MonsterEntity m " +
             "join FearActionEntity " +
             "on m.id=FearActionEntity.monsterEntity " +
-            "where FearActionEntity.date=?1")
-    Optional<MonsterEntity> findAllMonstersByDateOfFearAction(Date date);
+            "where FearActionEntity.date=:date")
+    Optional<MonsterEntity> findAllMonstersByDateOfFearAction(@Param("date") Date date);
 
     @Query("select m from MonsterEntity m " +
             "join InfectionEntity " +
             "on m.id=InfectionEntity.monster  " +
-            "where InfectionEntity.infectionDate<=?1 " +
-            "and InfectionEntity.cureDate>?1")
-    Optional<MonsterEntity> findAllMonstersByDateOfInfection(Date date);
+            "where InfectionEntity.infectionDate<=:date " +
+            "and InfectionEntity.cureDate>:date")
+    Optional<MonsterEntity> findAllMonstersByDateOfInfection(@Param("date") Date date);
 }
