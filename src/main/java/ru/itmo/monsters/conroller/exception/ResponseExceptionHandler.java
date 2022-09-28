@@ -1,14 +1,15 @@
 package ru.itmo.monsters.conroller.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.ConstraintViolationException;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -61,12 +62,22 @@ public class ResponseExceptionHandler {
         );
     }
 
-    @ExceptionHandler(SQLException.class)
+    @ExceptionHandler(EntityExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorMessage handleSQLDataException(SQLException ex, WebRequest request) {
+    public ErrorMessage handleEntityExistsException(EntityExistsException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.CONFLICT,
-                ex.getMessage().split("\\r?\\n")[0].replaceFirst("ERROR: ", ""),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorMessage handleBadCredentialsException(BadCredentialsException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid user credentials",
                 request.getDescription(false)
         );
     }
