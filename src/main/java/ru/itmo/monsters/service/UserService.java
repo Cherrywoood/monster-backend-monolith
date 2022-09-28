@@ -2,6 +2,7 @@ package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.itmo.monsters.conroller.exception.NotFoundException;
 import ru.itmo.monsters.dto.UserDTO;
 import ru.itmo.monsters.mapper.UserMapper;
 import ru.itmo.monsters.model.RoleEntity;
@@ -22,17 +23,19 @@ public class UserService {
     public UserEntity save(UserDTO userDTO) {
         System.out.println(userDTO);
         RoleEntity roleEntity = roleService.findByName(userDTO.getRole());
-        UserEntity userEntity = userRepository.save(mapper.mapDtoToEntity(userDTO, roleEntity));
-        System.out.println(userEntity);
-        return userEntity;
+        return userRepository.save(mapper.mapDtoToEntity(userDTO, roleEntity));
     }
 
     public UserEntity findByLogin(String login) {
-        return userRepository.findByLogin(login).orElseThrow(IllegalArgumentException::new);
+        return userRepository.findByLogin(login).orElseThrow(
+                () -> new NotFoundException("user not found by login " + login)
+        );
     }
 
     public UserEntity findById(UUID id) {
-        return userRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        return userRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("user not found by id " + id)
+        );
     }
 
     public List<UserEntity> findAll() {
@@ -44,8 +47,10 @@ public class UserService {
     }
 
     public UserEntity updateRoleByLogin(Map<String, String> roleUpdate, String login) {
-        UserEntity userEntity = userRepository.findByLogin(login).orElseThrow(IllegalArgumentException::new);
         RoleEntity roleEntity = roleService.findByName(roleUpdate.get("role"));
+        UserEntity userEntity = userRepository.findByLogin(login).orElseThrow(
+                () -> new NotFoundException("user not found by login " + login)
+        );
         userEntity.setRole(roleEntity);
         userRepository.save(userEntity);
         return userEntity;
@@ -55,7 +60,9 @@ public class UserService {
         userRepository.delete(
                 userRepository
                         .findByLogin(login)
-                        .orElseThrow(IllegalArgumentException::new)
+                        .orElseThrow(
+                                () -> new NotFoundException("user not found by login " + login)
+                        )
         );
     }
 

@@ -2,6 +2,7 @@ package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.itmo.monsters.conroller.exception.NotFoundException;
 import ru.itmo.monsters.dto.RoleDTO;
 import ru.itmo.monsters.mapper.RoleMapper;
 import ru.itmo.monsters.model.RoleEntity;
@@ -22,7 +23,9 @@ public class RoleService {
     }
 
     public RoleEntity findByName(String name) {
-        return roleRepository.findByName(name).orElseThrow(IllegalAccessError::new);
+        return roleRepository.findByName(name).orElseThrow(
+                () -> new NotFoundException("role not found by name " + name)
+        );
     }
 
     public List<RoleEntity> findAll() {
@@ -33,7 +36,9 @@ public class RoleService {
         roleRepository.delete(
                 roleRepository
                         .findByName(name)
-                        .orElseThrow(IllegalAccessError::new)
+                        .orElseThrow(
+                                () -> new NotFoundException("role not found by name " + name)
+                        )
         );
     }
 

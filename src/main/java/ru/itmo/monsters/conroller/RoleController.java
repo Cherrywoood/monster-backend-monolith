@@ -7,6 +7,7 @@ import ru.itmo.monsters.dto.RoleDTO;
 import ru.itmo.monsters.mapper.RoleMapper;
 import ru.itmo.monsters.service.RoleService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class RoleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RoleDTO save(@RequestBody RoleDTO roleDTO) {
+    public RoleDTO save(@Valid @RequestBody RoleDTO roleDTO) {
         return mapper.mapEntityToDto(roleService.save(roleDTO));
     }
 
