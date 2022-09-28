@@ -16,7 +16,7 @@ public class ChildEntity {
     @Column(name = "name", nullable = false, length = 16)
     private String name;
 
-    @Column(name = "dob", nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     private Date dob;
 
     @Column(name = "gender", nullable = false, length = 1)

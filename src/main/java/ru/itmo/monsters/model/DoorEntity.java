@@ -13,8 +13,8 @@ public class DoorEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean is_active = false;
+    @Column(name = "status", nullable = false)
+    private boolean isActive = false;
 
     @OneToMany(mappedBy = "doorEntity")
     private List<FearActionEntity> fearActions;
