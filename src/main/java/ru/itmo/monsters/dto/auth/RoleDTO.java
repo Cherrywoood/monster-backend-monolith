@@ -1,4 +1,4 @@
-package ru.itmo.monsters.dto;
+package ru.itmo.monsters.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

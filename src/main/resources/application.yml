@@ -1,4 +1,9 @@
+server:
+  port: 8080
+
 spring:
+  application:
+    name: monster company backend
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/monstercompany
@@ -10,8 +15,20 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    open-in-view: false
-    generate-ddl: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 jwt:
   secret: spring
   expiration: 3600000
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        sql: debug
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE

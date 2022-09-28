@@ -1,45 +1,47 @@
-package ru.itmo.monsters.model;
+package ru.itmo.monsters.model.auth;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "roles")
-public class RoleEntity {
+@Table(name = "users")
+public class UserEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "name")
+    @Column(name = "login")
     @NotBlank(message = "cannot be null, empty or whitespace")
     @Size(min = 4, max = 16, message = "must be between 4 and 16 characters")
-    private String name;
+    private String login;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    @Fetch(FetchMode.JOIN)
-    @ToString.Exclude
-    private List<UserEntity> users;
+    @Column(name = "password")
+    @NotBlank(message = "cannot be null, empty or whitespace")
+    private String password;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @NotNull(message = "cannot be null")
+    private RoleEntity role;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        RoleEntity that = (RoleEntity) o;
+        UserEntity that = (UserEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 
