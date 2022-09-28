@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS MONSTER
     NAME          VARCHAR(16)                                                    NOT NULL,
     GENDER        GENDER                                                         NOT NULL,
     DATE_OF_BIRTH DATE                                                           NOT NULL,
-    POSITION      JOB                                                            NOT NULL,
+    JOB           JOB                                                            NOT NULL,
     EMAIL         VARCHAR(30)                                                    NOT NULL UNIQUE,
     SALARY        INT                                                            NOT NULL,
     USER_ID       UUID REFERENCES USERS (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS INFECTION
     ID                UUID PRIMARY KEY,
     MONSTER_ID        UUID REFERENCES MONSTER (ID) ON DELETE NO ACTION ON UPDATE CASCADE        NOT NULL,
     INFECTED_THING_ID UUID REFERENCES INFECTED_THING (ID) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL,
-    DATE_OF_POISONING DATE                                                                      NOT NULL,
-    DATE_OF_CURE      DATE DEFAULT NULL,
-    CHECK (DATE_OF_CURE >= DATE_OF_POISONING)
+    INFECTION_DATE    DATE                                                                      NOT NULL,
+    CURE_DATE         DATE DEFAULT NULL,
+    CHECK (CURE_DATE >= INFECTION_DATE)
 );
