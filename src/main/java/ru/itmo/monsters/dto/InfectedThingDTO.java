@@ -1,15 +1,13 @@
 package ru.itmo.monsters.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class RoleDTO {
+public class InfectedThingDTO {
+
     private UUID id;
     private String name;
+    private DoorDTO door;
 }

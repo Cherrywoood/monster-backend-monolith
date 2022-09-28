@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.UserDTO;
-import ru.itmo.monsters.model.RoleEntity;
 import ru.itmo.monsters.model.UserEntity;
-
 @RequiredArgsConstructor
 @Component
 public class UserMapper {
