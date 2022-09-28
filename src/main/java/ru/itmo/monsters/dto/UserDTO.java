@@ -1,10 +1,9 @@
-package ru.itmo.monsters.dto.auth;
+package ru.itmo.monsters.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itmo.monsters.dto.auth.RoleDTO;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
