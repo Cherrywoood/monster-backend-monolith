@@ -10,6 +10,9 @@ spring:
     username: postgres
     password: 12345
   jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: false
@@ -17,7 +20,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-
+jwt:
+  secret: spring
+  expiration: 3600000
 #logging:
 #  level:
 #    org:

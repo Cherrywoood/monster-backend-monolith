@@ -2,6 +2,7 @@ package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.UserDTO;
 import ru.itmo.monsters.mapper.UserMapper;
@@ -11,10 +12,10 @@ import ru.itmo.monsters.service.UserService;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
@@ -44,7 +45,7 @@ public class UserController {
         return users
                 .stream()
                 .map((mapper::mapEntityToDto))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @PatchMapping("/{login}")
