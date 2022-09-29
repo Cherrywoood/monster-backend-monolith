@@ -3,13 +3,15 @@ version: "3.7"
 services:
   postgres:
     image: postgres:14
-    container_name: monster_pg
+    env_file:
+      - ./.env
+    container_name: $POSTGRES_HOST
     ports:
-      - "5432:5432"
+      - "5432:5432"#$POSTGRES_PORT:$POSTGRES_LOCAL_PORT
     environment:
-      POSTGRES_DB: monster_company
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     volumes:
       - ./postgres/db:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
@@ -17,8 +19,10 @@ services:
   app:
     build:
       context: ..
+    env_file:
+      - ./.env
     container_name: monster-app
     ports:
-      - "8080:8080"
+      - "8080:8080"#$SERVER_LOCAL_PORT:$SERVER_PORT
     depends_on:
       - postgres
