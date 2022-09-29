@@ -18,6 +18,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
+
 jwt:
   secret: spring
   expiration: 3600000
