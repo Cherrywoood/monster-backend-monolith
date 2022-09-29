@@ -6,9 +6,9 @@ spring:
     name: monster company backend
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://monster_pg:5432/monster_company
-    username: postgres
-    password: 12345
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:monster_company}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:12345}
   jpa:
     show-sql: true
     database: postgresql
