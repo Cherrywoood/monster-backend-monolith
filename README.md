@@ -10,7 +10,6 @@ Polina Popova <br>
 ### Subject area
 Monsters, Inc. 
 ### Database architecture
-
 ```mermaid
 erDiagram
           Roles ||--|{ Users : ""
