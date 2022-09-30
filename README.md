@@ -25,6 +25,7 @@ erDiagram
           Door ||--|{ Child : ""
 
 ```
+![er.png](https://im.wampi.ru/2022/10/01/er.png)
 <div align="right">
   <img src="https://im.wampi.ru/2022/10/01/MAIKf02d4ac4d7f81d9d.png" alt="MAIKf02d4ac4d7f81d9d.png" border="0">
 </div>
