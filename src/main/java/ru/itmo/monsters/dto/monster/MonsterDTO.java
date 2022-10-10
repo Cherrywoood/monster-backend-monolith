@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ru.itmo.monsters.dto.UserDTO;
+import ru.itmo.monsters.enums.Gender;
+import ru.itmo.monsters.enums.Job;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,11 +21,12 @@ public class MonsterDTO {
 
     private UUID id;
 
-    @NotNull(message = "shouldn't be null")
-    private UserDTO userDTO;
+    @NotBlank(message = "cannot be null, empty or whitespace")
+    @Size(min = 4, max = 16, message = "must be between 4 and 16 characters")
+    private String login;
 
-    @NotBlank(message = "shouldn't be empty")
-    private String job;
+    @NotNull(message = "shouldn't be null")
+    private Job job;
 
     @NotBlank(message = "shouldn't be empty")
     @Size(max = 16, message = "shouldn't exceed 16 characters")
@@ -33,7 +36,7 @@ public class MonsterDTO {
     private Date dateOfBirth;
 
     @NotNull(message = "shouldn't be null")
-    private String gender;
+    private Gender gender;
 
     @NotBlank(message = "shouldn't be null")
     @Size(max = 30, message = "shouldn't exceed 30 characters")
