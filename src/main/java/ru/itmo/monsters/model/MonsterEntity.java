@@ -69,9 +69,11 @@ public class MonsterEntity {
             joinColumns = @JoinColumn(name = "monster_id"),
             inverseJoinColumns = @JoinColumn(name = "reward_id")
     )
+    @ToString.Exclude
     private List<RewardEntity> rewards;
 
     @OneToMany(mappedBy = "monsterEntity")
+    @ToString.Exclude
     private List<FearActionEntity> fearActions;
 
 }
