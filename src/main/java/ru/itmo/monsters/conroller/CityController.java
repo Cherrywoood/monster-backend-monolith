@@ -1,19 +1,15 @@
 package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.CityDTO;
-import ru.itmo.monsters.dto.ElectricBalloonDTO;
-import ru.itmo.monsters.dto.monster.MonsterDTO;
 import ru.itmo.monsters.mapper.CityMapper;
 import ru.itmo.monsters.service.CityService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

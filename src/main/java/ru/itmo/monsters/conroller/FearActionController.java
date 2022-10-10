@@ -1,13 +1,10 @@
 package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.monsters.dto.ElectricBalloonDTO;
 import ru.itmo.monsters.dto.FearActionDTO;
-import ru.itmo.monsters.dto.monster.MonsterDTO;
 import ru.itmo.monsters.mapper.FearActionMapper;
 import ru.itmo.monsters.service.FearActionService;
 

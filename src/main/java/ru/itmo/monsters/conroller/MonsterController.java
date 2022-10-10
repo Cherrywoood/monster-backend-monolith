@@ -1,12 +1,10 @@
 package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.monsters.dto.FearActionDTO;
 import ru.itmo.monsters.dto.monster.MonsterDTO;
 import ru.itmo.monsters.dto.monster.MonsterRatingDTO;
 import ru.itmo.monsters.enums.Job;
@@ -30,7 +28,7 @@ public class MonsterController {
     public List<MonsterRatingDTO> getRating() {
         List<MonsterRatingDTO> ratingDTO = new ArrayList<>();
         Map<MonsterEntity, Integer> rating = monsterService.getRating();
-        for (MonsterEntity monster:rating.keySet()) {
+        for (MonsterEntity monster : rating.keySet()) {
             ratingDTO.add(monsterMapper.mapEntityToRatingDTO(monster, rating.get(monster)));
         }
         return ratingDTO;

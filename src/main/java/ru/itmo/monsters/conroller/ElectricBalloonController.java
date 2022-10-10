@@ -1,24 +1,19 @@
 package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.monsters.dto.CityDTO;
 import ru.itmo.monsters.dto.ElectricBalloonDTO;
-import ru.itmo.monsters.dto.monster.MonsterDTO;
-import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.mapper.ElectricBalloonMapper;
-import ru.itmo.monsters.model.ElectricBalloonEntity;
-import ru.itmo.monsters.model.MonsterEntity;
 import ru.itmo.monsters.service.ElectricBalloonService;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -62,7 +57,6 @@ public class ElectricBalloonController {
         electricBalloonDTO.setId(id);
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.save(electricBalloonDTO));
     }
-
 
 
 }

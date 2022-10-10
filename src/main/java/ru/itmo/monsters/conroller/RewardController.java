@@ -1,19 +1,14 @@
 package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.monsters.dto.CityDTO;
-import ru.itmo.monsters.dto.FearActionDTO;
 import ru.itmo.monsters.dto.RewardDTO;
 import ru.itmo.monsters.mapper.RewardMapper;
 import ru.itmo.monsters.service.RewardService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -26,7 +21,7 @@ public class RewardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RewardDTO addReward(@Valid @RequestBody RewardDTO rewardDTO){
+    public RewardDTO addReward(@Valid @RequestBody RewardDTO rewardDTO) {
         return rewardMapper.mapEntityToDto(rewardService.save(rewardDTO));
     }
 
