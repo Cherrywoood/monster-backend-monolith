@@ -2,13 +2,10 @@ package ru.itmo.monsters.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,18 +19,13 @@ import java.util.UUID;
 @Table(name = "roles")
 public class RoleEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "name")
     @NotBlank(message = "cannot be null, empty or whitespace")
     @Size(min = 4, max = 16, message = "must be between 4 and 16 characters")
     private String name;
-
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    @Fetch(FetchMode.JOIN)
-    @ToString.Exclude
-    private List<UserEntity> users;
 
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 package ru.itmo.monsters.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,8 +10,9 @@ import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RoleDTO {
     private UUID id;
 
