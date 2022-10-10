@@ -25,7 +25,7 @@ public class ElectricBalloonEntity {
     @JoinColumn(name = "fear_action_id")
     private FearActionEntity fearActionEntity;
 
-    @NotNull(message = "shouldn't be empty")
+    @NotNull(message = "shouldn't be null")
     @ManyToOne
     @JoinColumn(name = "city_id")
     private CityEntity cityEntity;
