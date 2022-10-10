@@ -14,7 +14,6 @@ import java.util.UUID;
 @Builder
 public class FearActionDTO {
 
-    @NotNull(message = "shouldn't be empty")
     private UUID id;
 
     @NotNull(message = "shouldn't be null")

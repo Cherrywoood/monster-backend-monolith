@@ -14,7 +14,6 @@ import java.util.UUID;
 @Builder
 public class CityDTO {
 
-    @NotNull(message = "shouldn't be null")
     private UUID id;
 
     @NotBlank(message = "shouldn't be empty")

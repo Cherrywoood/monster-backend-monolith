@@ -13,7 +13,6 @@ import java.util.UUID;
 @Builder
 public class RewardDTO {
 
-    @NotNull(message = "shouldn't be null")
     private UUID id;
 
     @NotNull(message = "shouldn't be null")

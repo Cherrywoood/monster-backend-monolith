@@ -12,7 +12,6 @@ import java.util.UUID;
 @Builder
 public class ElectricBalloonDTO {
 
-    @NotNull(message = "shouldn't be null")
     private UUID id;
 
     private FearActionDTO fearActionDTO;
