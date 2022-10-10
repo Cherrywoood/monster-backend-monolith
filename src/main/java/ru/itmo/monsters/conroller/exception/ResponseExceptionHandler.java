@@ -77,7 +77,7 @@ public class ResponseExceptionHandler {
     public ErrorMessage handleBadCredentialsException(BadCredentialsException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.UNAUTHORIZED,
-                "Invalid user credentials",
+                "invalid user credentials",
                 request.getDescription(false)
         );
     }
