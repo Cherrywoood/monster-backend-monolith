@@ -18,14 +18,15 @@ public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
 
     @Query("select m from MonsterEntity m " +
             "join FearActionEntity " +
-            "on m.id=FearActionEntity.monsterEntity " +
+            "on m.id=FearActionEntity.monsterEntity.id " +
             "where FearActionEntity.date=:date")
-    Optional<MonsterEntity> findAllMonstersByDateOfFearAction(@Param("date") Date date);
+    Optional<MonsterEntity> findAllByDateOfFearAction(@Param("date") Date date);
 
     @Query("select m from MonsterEntity m " +
             "join InfectionEntity " +
-            "on m.id=InfectionEntity.monster  " +
+            "on m.id=InfectionEntity.monster.id  " +
             "where InfectionEntity.infectionDate<=:date " +
             "and InfectionEntity.cureDate>:date")
-    Optional<MonsterEntity> findAllMonstersByDateOfInfection(@Param("date") Date date);
+    Optional<MonsterEntity> findAllByInfectionDate(@Param("date") Date date);
+
 }
