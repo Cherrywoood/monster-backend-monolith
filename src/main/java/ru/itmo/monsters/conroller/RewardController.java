@@ -20,6 +20,7 @@ public class RewardController {
     private final RewardMapper rewardMapper;
 
     @GetMapping("{rewardId}")
+    @ResponseStatus(HttpStatus.OK)
     public RewardDTO getReward(@PathVariable UUID rewardId) {
         return rewardMapper.mapEntityToDto(rewardService.findById(rewardId));
     }

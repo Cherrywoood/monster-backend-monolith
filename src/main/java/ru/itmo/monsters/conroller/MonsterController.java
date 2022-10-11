@@ -25,6 +25,7 @@ public class MonsterController {
     private final MonsterMapper monsterMapper;
 
     @GetMapping("{monsterId}")
+    @ResponseStatus(HttpStatus.OK)
     public MonsterDTO getMonster(@PathVariable UUID monsterId) {
         return monsterMapper.mapEntityToDto(monsterService.findById(monsterId));
     }

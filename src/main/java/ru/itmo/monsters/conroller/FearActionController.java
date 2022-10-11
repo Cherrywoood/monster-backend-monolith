@@ -20,6 +20,7 @@ public class FearActionController {
     private final FearActionMapper fearActionMapper;
 
     @GetMapping("{fearActionId}")
+    @ResponseStatus(HttpStatus.OK)
     public FearActionDTO getFearAction(@PathVariable UUID fearActionId) {
         return fearActionMapper.mapEntityToDto(fearActionService.findById(fearActionId));
     }

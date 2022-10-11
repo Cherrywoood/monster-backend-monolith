@@ -31,6 +31,7 @@ public class ElectricBalloonController {
     }
 
     @GetMapping("{electricBalloonId}")
+    @ResponseStatus(HttpStatus.OK)
     public ElectricBalloonDTO getElectricBalloon(@PathVariable UUID electricBalloonId) {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.findById(electricBalloonId));
     }
