@@ -3,10 +3,10 @@ package ru.itmo.monsters.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ru.itmo.monsters.dto.monster.MonsterDTO;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,12 +17,15 @@ public class FearActionDTO {
     private UUID id;
 
     @NotNull(message = "shouldn't be null")
-    private MonsterDTO monsterDTO;
+    private UUID monsterId;
 
     @NotNull(message = "shouldn't be null")
-    private DoorDTO doorDTO;
+    private UUID doorId;
 
     @NotNull(message = "shouldn't be null")
     private Date date;
+
+    @NotNull(message = "can be empty, but shouldn't be null")
+    private List<UUID> balloonsIds;
 
 }
