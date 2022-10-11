@@ -7,9 +7,7 @@ import ru.itmo.monsters.model.CityEntity;
 import ru.itmo.monsters.model.ElectricBalloonEntity;
 import ru.itmo.monsters.service.ElectricBalloonService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -21,7 +19,7 @@ public class CityMapper {
         return CityDTO.builder()
                 .id(cityEntity.getId())
                 .name(cityEntity.getName())
-                .balloonsIds(getIdsFromListOfEntities(cityEntity.getBalloons()))
+                .balloonsIds(cityEntity.getBalloons().stream().map(ElectricBalloonEntity::getId).collect(Collectors.toList()))
                 .build();
     }
 
@@ -29,19 +27,7 @@ public class CityMapper {
         return CityEntity.builder()
                 .id(cityDTO.getId())
                 .name(cityDTO.getName())
-                .balloons(getListOfEntitiesFromIds(cityDTO.getBalloonsIds()))
+                .balloons(cityDTO.getBalloonsIds().stream().map(electricBalloonService::findById).collect(Collectors.toList()))
                 .build();
-    }
-
-    private List<UUID> getIdsFromListOfEntities(List<ElectricBalloonEntity> list) {
-        ArrayList<UUID> ids = new ArrayList<>();
-        list.forEach(e -> ids.add(e.getId()));
-        return ids;
-    }
-
-    private List<ElectricBalloonEntity> getListOfEntitiesFromIds(List<UUID> list) {
-        ArrayList<ElectricBalloonEntity> entities = new ArrayList<>();
-        list.forEach(id -> entities.add(electricBalloonService.findById(id)));
-        return entities;
     }
 }

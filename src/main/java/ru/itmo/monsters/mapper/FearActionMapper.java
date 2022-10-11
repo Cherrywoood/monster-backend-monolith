@@ -9,9 +9,7 @@ import ru.itmo.monsters.service.DoorService;
 import ru.itmo.monsters.service.ElectricBalloonService;
 import ru.itmo.monsters.service.MonsterService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -27,7 +25,7 @@ public class FearActionMapper {
                 .monsterId(fearActionEntity.getMonsterEntity().getId())
                 .doorId(fearActionEntity.getDoorEntity().getId())
                 .date(fearActionEntity.getDate())
-                .balloonsIds(getIdsFromListOfEntities(fearActionEntity.getBalloons()))
+                .balloonsIds(fearActionEntity.getBalloons().stream().map(ElectricBalloonEntity::getId).collect(Collectors.toList()))
                 .build();
     }
 
@@ -37,19 +35,8 @@ public class FearActionMapper {
                 .monsterEntity(monsterService.findById(fearActionDTO.getMonsterId()))
                 .doorEntity(doorService.findById(fearActionDTO.getDoorId()))
                 .date(fearActionDTO.getDate())
-                .balloons(getListOfEntitiesFromIds(fearActionDTO.getBalloonsIds()))
+                .balloons(fearActionDTO.getBalloonsIds().stream().map(electricBalloonService::findById).collect(Collectors.toList()))
                 .build();
     }
 
-    private List<UUID> getIdsFromListOfEntities(List<ElectricBalloonEntity> list) {
-        ArrayList<UUID> ids = new ArrayList<>();
-        list.forEach(e -> ids.add(e.getId()));
-        return ids;
-    }
-
-    private List<ElectricBalloonEntity> getListOfEntitiesFromIds(List<UUID> list) {
-        ArrayList<ElectricBalloonEntity> entities = new ArrayList<>();
-        list.forEach(id -> entities.add(electricBalloonService.findById(id)));
-        return entities;
-    }
 }

@@ -8,9 +8,7 @@ import ru.itmo.monsters.model.MonsterEntity;
 import ru.itmo.monsters.model.RewardEntity;
 import ru.itmo.monsters.service.MonsterService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -21,26 +19,14 @@ public class RewardMapper {
 
     public RewardDTO mapEntityToDto(RewardEntity rewardEntity) {
         RewardDTO rewardDTO = modelMapper.map(rewardEntity, RewardDTO.class);
-        rewardDTO.setMonstersIds(getIdsFromListOfEntities(rewardEntity.getMonsters()));
+        rewardDTO.setMonstersIds(rewardEntity.getMonsters().stream().map(MonsterEntity::getId).collect(Collectors.toList()));
         return rewardDTO;
     }
 
     public RewardEntity mapDtoToEntity(RewardDTO rewardDTO) {
         RewardEntity rewardEntity = modelMapper.map(rewardDTO, RewardEntity.class);
-        rewardEntity.setMonsters(getListOfEntitiesFromIds(rewardDTO.getMonstersIds()));
+        rewardEntity.setMonsters(rewardDTO.getMonstersIds().stream().map(monsterService::findById).collect(Collectors.toList()));
         return rewardEntity;
-    }
-
-    private List<UUID> getIdsFromListOfEntities(List<MonsterEntity> list) {
-        ArrayList<UUID> ids = new ArrayList<>();
-        list.forEach(e -> ids.add(e.getId()));
-        return ids;
-    }
-
-    private List<MonsterEntity> getListOfEntitiesFromIds(List<UUID> list) {
-        ArrayList<MonsterEntity> entities = new ArrayList<>();
-        list.forEach(id -> entities.add(monsterService.findById(id)));
-        return entities;
     }
 
 }

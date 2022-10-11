@@ -12,9 +12,7 @@ import ru.itmo.monsters.service.FearActionService;
 import ru.itmo.monsters.service.RewardService;
 import ru.itmo.monsters.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -28,16 +26,16 @@ public class MonsterMapper {
     public MonsterDTO mapEntityToDto(MonsterEntity monsterEntity) {
         MonsterDTO monsterDTO = modelMapper.map(monsterEntity, MonsterDTO.class);
         monsterDTO.setUserId(monsterEntity.getUserEntity().getId());
-        monsterDTO.setFearActionsIds(getIdsFromListOfFearActionEntities(monsterEntity.getFearActions()));
-        monsterDTO.setRewardsIds(getIdsFromListOfRewardEntities(monsterEntity.getRewards()));
+        monsterDTO.setFearActionsIds(monsterEntity.getFearActions().stream().map(FearActionEntity::getId).collect(Collectors.toList()));
+        monsterDTO.setRewardsIds(monsterEntity.getRewards().stream().map(RewardEntity::getId).collect(Collectors.toList()));
         return monsterDTO;
     }
 
     public MonsterEntity mapDtoToEntity(MonsterDTO monsterDTO) {
         MonsterEntity monsterEntity = modelMapper.map(monsterDTO, MonsterEntity.class);
         monsterEntity.setUserEntity(userService.findById(monsterDTO.getUserId()));
-        monsterEntity.setFearActions(getListOfFearActionEntitiesFromIds(monsterDTO.getFearActionsIds()));
-        monsterEntity.setRewards(getListOfRewardEntitiesFromIds(monsterDTO.getRewardsIds()));
+        monsterEntity.setFearActions(monsterDTO.getFearActionsIds().stream().map(fearActionService::findById).collect(Collectors.toList()));
+        monsterEntity.setRewards(monsterDTO.getRewardsIds().stream().map(rewardService::findById).collect(Collectors.toList()));
         return monsterEntity;
     }
 
@@ -47,30 +45,5 @@ public class MonsterMapper {
                 .countBalloons(countBalloons)
                 .build();
     }
-
-    private List<UUID> getIdsFromListOfRewardEntities(List<RewardEntity> list) {
-        ArrayList<UUID> ids = new ArrayList<>();
-        list.forEach(e -> ids.add(e.getId()));
-        return ids;
-    }
-
-    private List<RewardEntity> getListOfRewardEntitiesFromIds(List<UUID> list) {
-        ArrayList<RewardEntity> entities = new ArrayList<>();
-        list.forEach(id -> entities.add(rewardService.findById(id)));
-        return entities;
-    }
-
-    private List<UUID> getIdsFromListOfFearActionEntities(List<FearActionEntity> list) {
-        ArrayList<UUID> ids = new ArrayList<>();
-        list.forEach(e -> ids.add(e.getId()));
-        return ids;
-    }
-
-    private List<FearActionEntity> getListOfFearActionEntitiesFromIds(List<UUID> list) {
-        ArrayList<FearActionEntity> entities = new ArrayList<>();
-        list.forEach(id -> entities.add(fearActionService.findById(id)));
-        return entities;
-    }
-
 
 }
