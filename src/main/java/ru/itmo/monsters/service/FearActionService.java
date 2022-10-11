@@ -8,6 +8,7 @@ import ru.itmo.monsters.mapper.FearActionMapper;
 import ru.itmo.monsters.model.FearActionEntity;
 import ru.itmo.monsters.repository.FearActionRepository;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -20,6 +21,21 @@ public class FearActionService {
     private final String EXC_MES_ID = "none fear action was found by id";
 
     public FearActionEntity save(FearActionDTO fearActionDTO) {
+        return fearActionRepository.save(fearActionMapper.mapDtoToEntity(fearActionDTO));
+    }
+
+    public FearActionEntity findById(UUID fearActionId) {
+        return fearActionRepository.findById(fearActionId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + fearActionId)
+        );
+    }
+
+    @Transactional
+    public FearActionEntity updateById(UUID fearActionId, FearActionDTO fearActionDTO) {
+        fearActionRepository.findById(fearActionId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + fearActionId)
+        );
+        fearActionDTO.setId(fearActionId);
         return fearActionRepository.save(fearActionMapper.mapDtoToEntity(fearActionDTO));
     }
 

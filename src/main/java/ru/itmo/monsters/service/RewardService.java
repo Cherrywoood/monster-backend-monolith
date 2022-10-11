@@ -9,6 +9,7 @@ import ru.itmo.monsters.model.RewardEntity;
 import ru.itmo.monsters.repository.RewardRepository;
 
 import javax.persistence.EntityExistsException;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -18,15 +19,29 @@ public class RewardService {
     private static final String EXC_EXIST = "reward with such amount of money already exists";
     private final String EXC_MES_ID = "none reward was found by id";
 
-    private final RewardMapper mapper;
+    private final RewardMapper rewardMapper;
     private final RewardRepository rewardRepository;
 
     public RewardEntity save(RewardDTO rewardDTO) {
         if (rewardRepository.findByMoney(rewardDTO.getMoney()).isPresent()) {
             throw new EntityExistsException(EXC_EXIST + ": " + rewardDTO.getMoney());
         }
-        RewardEntity rewardEntity = mapper.mapDtoToEntity(rewardDTO);
-        return rewardRepository.save(rewardEntity);
+        return rewardRepository.save(rewardMapper.mapDtoToEntity(rewardDTO));
+    }
+
+    public RewardEntity findById(UUID rewardId) {
+        return rewardRepository.findById(rewardId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
+        );
+    }
+
+    @Transactional
+    public RewardEntity updateById(UUID rewardId, RewardDTO rewardDTO) {
+        rewardRepository.findById(rewardId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
+        );
+        rewardDTO.setId(rewardId);
+        return rewardRepository.save(rewardMapper.mapDtoToEntity(rewardDTO));
     }
 
     public void delete(UUID rewardId) {

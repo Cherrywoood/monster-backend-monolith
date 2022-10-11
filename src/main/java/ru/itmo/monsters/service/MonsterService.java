@@ -11,6 +11,7 @@ import ru.itmo.monsters.repository.ElectricBalloonRepository;
 import ru.itmo.monsters.repository.MonsterRepository;
 
 import javax.persistence.EntityExistsException;
+import javax.transaction.Transactional;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -23,9 +24,6 @@ public class MonsterService {
 
     private final String EXC_EXIST = "monster with this email already exists";
     private final String EXC_MES_ID = "none monster was found by id";
-    private final String EXC_MES_JOB = "none monster was found by job";
-    private final String EXC_MES_FEAR_ACTION_DATE = "none monster was found by date of fear action";
-    private final String EXC_MES_INFECTION_DATE = "none monster was found by date of fear action";
 
     public MonsterEntity save(MonsterDTO monsterDTO) {
         if (monsterRepository.findByEmail(monsterDTO.getEmail()).isPresent()) {
@@ -34,12 +32,19 @@ public class MonsterService {
         return monsterRepository.save(monsterMapper.mapDtoToEntity(monsterDTO));
     }
 
+    public MonsterEntity findById(UUID monsterId) {
+        return monsterRepository.findById(monsterId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)
+        );
+    }
+
+    @Transactional
     public MonsterEntity updateJobById(Job job, UUID monsterId) {
         MonsterEntity monsterEntity = monsterRepository.findById(monsterId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)
         );
         monsterEntity.setJob(job);
-        return monsterEntity;
+        return monsterRepository.save(monsterEntity);
     }
 
     public Map<MonsterEntity, Integer> getRating() {
@@ -54,26 +59,26 @@ public class MonsterService {
 
     public Optional<MonsterEntity> findAllByJob(Job job) {
         Optional<MonsterEntity> monsters = monsterRepository.findAllByJob(job);
-        if (monsters.isEmpty()) {
-            throw new NotFoundException(EXC_MES_JOB + ": " + job);
-        }
         return monsters;
     }
 
     public Optional<MonsterEntity> findAllByDateOfFearAction(Date date) {
         Optional<MonsterEntity> monsters = monsterRepository.findAllByDateOfFearAction(date);
-        if (monsters.isEmpty()) {
-            throw new NotFoundException(EXC_MES_FEAR_ACTION_DATE + ": " + date);
-        }
         return monsters;
     }
 
     public Optional<MonsterEntity> findAllByInfectionDate(Date date) {
         Optional<MonsterEntity> monsters = monsterRepository.findAllByInfectionDate(date);
-        if (monsters.isEmpty()) {
-            throw new NotFoundException(EXC_MES_INFECTION_DATE + ": " + date);
-        }
         return monsters;
+    }
+
+    @Transactional
+    public MonsterEntity updateById(UUID monsterId, MonsterDTO monsterDTO) {
+        monsterRepository.findById(monsterId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)
+        );
+        monsterDTO.setId(monsterId);
+        return monsterRepository.save(monsterMapper.mapDtoToEntity(monsterDTO));
     }
 
     public void delete(UUID monsterId) {

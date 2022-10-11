@@ -9,6 +9,7 @@ import ru.itmo.monsters.model.CityEntity;
 import ru.itmo.monsters.repository.CityRepository;
 
 import javax.persistence.EntityExistsException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class CityService {
     private final CityMapper cityMapper;
 
     private final String EXC_MES_ID = "none city was found by id";
+    private final String EXC_MES_NAME = "none city was found by name";
     private final String EXC_EXIST = "city with this name already exists";
 
 
@@ -30,8 +32,23 @@ public class CityService {
         return cityRepository.save(cityMapper.mapDtoToEntity(cityDTO));
     }
 
+    @Transactional
+    public CityEntity updateById(UUID cityId, CityDTO cityDTO) {
+        cityRepository.findById(cityId).orElseThrow(
+                () -> new NotFoundException(EXC_MES_ID + ": " + cityId)
+        );
+        cityDTO.setId(cityId);
+        return cityRepository.save(cityMapper.mapDtoToEntity(cityDTO));
+    }
+
     public List<CityEntity> findAll() {
         return cityRepository.findAll();
+    }
+
+    public CityEntity findByName(String cityName) {
+        return cityRepository.findByName(cityName).orElseThrow(
+                () -> new NotFoundException(EXC_MES_NAME + ": " + cityName)
+        );
     }
 
     public void delete(UUID cityId) {
