@@ -2,6 +2,7 @@ package ru.itmo.monsters.conroller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.CityDTO;
@@ -28,24 +29,26 @@ public class CityController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     // TODO: 10.10.2022 pagination
-    public List<CityDTO> findAll() {
+    public ResponseEntity<List<CityDTO>> findAll() {
         List<CityDTO> cityDTOS = new ArrayList<>();
         cityService.findAll().forEach(c -> cityDTOS.add(cityMapper.mapEntityToDto(c)));
-        return cityDTOS;
+        if (cityDTOS.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(cityDTOS, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{cityId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCity(@PathVariable UUID id) {
-        cityService.delete(id);
+    public void deleteCity(@PathVariable UUID cityId) {
+        cityService.delete(cityId);
     }
 
-    @PutMapping("{id}")
-    public CityDTO putCity(@PathVariable UUID id, @Valid @RequestBody CityDTO cityDTO) {
-        cityDTO.setId(id);
-        return cityMapper.mapEntityToDto(cityService.save(cityDTO));
+    @PutMapping("{cityId}")
+    @ResponseStatus(HttpStatus.OK)
+    public CityDTO putCity(@PathVariable UUID cityId, @Valid @RequestBody CityDTO cityDTO) {
+        return cityMapper.mapEntityToDto(cityService.updateById(cityId, cityDTO));
     }
 }
 

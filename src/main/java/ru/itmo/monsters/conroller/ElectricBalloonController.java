@@ -3,6 +3,7 @@ package ru.itmo.monsters.conroller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.ElectricBalloonDTO;
@@ -29,33 +30,41 @@ public class ElectricBalloonController {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.save(electricBalloonDTO));
     }
 
+    @GetMapping("{electricBalloonId}")
+    public ElectricBalloonDTO getElectricBalloon(@PathVariable UUID electricBalloonId) {
+        return electricBalloonMapper.mapEntityToDto(electricBalloonService.findById(electricBalloonId));
+    }
 
     @GetMapping("date/{date}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ElectricBalloonDTO> findAllFilledByDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date) {
+    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
         electricBalloonService.findAllFilledByDate(date).ifPresent(e -> electricBalloonDTOS.add(electricBalloonMapper.mapEntityToDto(e)));
-        return electricBalloonDTOS;
+        if (electricBalloonDTOS.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(electricBalloonDTOS, HttpStatus.OK);
     }
 
     @GetMapping("city/{cityId}/date/{date}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ElectricBalloonDTO> findAllFilledByDateAndCity(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @PathVariable UUID cityId) {
+    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @PathVariable UUID cityId) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
         electricBalloonService.findAllFilledByDateAndCity(date, cityId).ifPresent(e -> electricBalloonDTOS.add(electricBalloonMapper.mapEntityToDto(e)));
-        return electricBalloonDTOS;
+        if (electricBalloonDTOS.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(electricBalloonDTOS, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{electricBalloonId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteElectricBalloon(@PathVariable UUID id) {
-        electricBalloonService.delete(id);
+    public void deleteElectricBalloon(@PathVariable UUID electricBalloonId) {
+        electricBalloonService.delete(electricBalloonId);
     }
 
-    @PutMapping("{id}")
-    public ElectricBalloonDTO putElectricBalloon(@PathVariable UUID id, @Valid @RequestBody ElectricBalloonDTO electricBalloonDTO) {
-        electricBalloonDTO.setId(id);
-        return electricBalloonMapper.mapEntityToDto(electricBalloonService.save(electricBalloonDTO));
+    @PutMapping("{electricBalloonId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ElectricBalloonDTO putElectricBalloon(@PathVariable UUID electricBalloonId, @Valid @RequestBody ElectricBalloonDTO electricBalloonDTO) {
+        return electricBalloonMapper.mapEntityToDto(electricBalloonService.updateById(electricBalloonId, electricBalloonDTO));
     }
 
 

@@ -19,22 +19,27 @@ public class RewardController {
     private final RewardService rewardService;
     private final RewardMapper rewardMapper;
 
+    @GetMapping("{rewardId}")
+    public RewardDTO getReward(@PathVariable UUID rewardId) {
+        return rewardMapper.mapEntityToDto(rewardService.findById(rewardId));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RewardDTO addReward(@Valid @RequestBody RewardDTO rewardDTO) {
         return rewardMapper.mapEntityToDto(rewardService.save(rewardDTO));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{rewardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteReward(@PathVariable UUID id) {
-        rewardService.delete(id);
+    public void deleteReward(@PathVariable UUID rewardId) {
+        rewardService.delete(rewardId);
     }
 
-    @PutMapping("{id}")
-    public RewardDTO putReward(@PathVariable UUID id, @Valid @RequestBody RewardDTO reward) {
-        reward.setId(id);
-        return rewardMapper.mapEntityToDto(rewardService.save(reward));
+    @PutMapping("{rewardId}")
+    @ResponseStatus(HttpStatus.OK)
+    public RewardDTO putReward(@PathVariable UUID rewardId, @Valid @RequestBody RewardDTO rewardDTO) {
+        return rewardMapper.mapEntityToDto(rewardService.updateById(rewardId, rewardDTO));
     }
 
 }

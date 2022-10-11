@@ -19,22 +19,27 @@ public class FearActionController {
     private final FearActionService fearActionService;
     private final FearActionMapper fearActionMapper;
 
+    @GetMapping("{fearActionId}")
+    public FearActionDTO getFearAction(@PathVariable UUID fearActionId) {
+        return fearActionMapper.mapEntityToDto(fearActionService.findById(fearActionId));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public FearActionDTO addFearAction(@Valid @RequestBody FearActionDTO fearActionDTO) {
         return fearActionMapper.mapEntityToDto(fearActionService.save(fearActionDTO));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{fearActionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFearAction(@PathVariable UUID id) {
-        fearActionService.delete(id);
+    public void deleteFearAction(@PathVariable UUID fearActionId) {
+        fearActionService.delete(fearActionId);
     }
 
-    @PutMapping("{id}")
-    public FearActionDTO putFearAction(@PathVariable UUID id, @Valid @RequestBody FearActionDTO fearAction) {
-        fearAction.setId(id);
-        return fearActionMapper.mapEntityToDto(fearActionService.save(fearAction));
+    @PutMapping("{fearActionId}")
+    @ResponseStatus(HttpStatus.OK)
+    public FearActionDTO putFearAction(@PathVariable UUID fearActionId, @Valid @RequestBody FearActionDTO fearAction) {
+        return fearActionMapper.mapEntityToDto(fearActionService.updateById(fearActionId, fearAction));
     }
 
 }
