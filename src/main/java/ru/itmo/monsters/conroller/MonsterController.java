@@ -47,9 +47,9 @@ public class MonsterController {
         return monsterMapper.mapEntityToDto(monsterService.save(monsterDTO));
     }
 
-    @GetMapping("job/{job}")
+    @GetMapping
     // TODO: 10.10.2022 pagination
-    public ResponseEntity<List<MonsterDTO>> findAllByJob(@PathVariable Job job) {
+    public ResponseEntity<List<MonsterDTO>> findAllByJob(@RequestParam Job job) {
         List<MonsterDTO> monsterDTOS = new ArrayList<>();
         monsterService.findAllByJob(job).ifPresent(m -> monsterDTOS.add(monsterMapper.mapEntityToDto(m)));
         if (monsterDTOS.isEmpty()) {

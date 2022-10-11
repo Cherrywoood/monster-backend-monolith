@@ -36,8 +36,8 @@ public class ElectricBalloonController {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.findById(electricBalloonId));
     }
 
-    @GetMapping("date/{date}")
-    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date) {
+    @GetMapping
+    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDate(@RequestParam @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
         electricBalloonService.findAllFilledByDate(date).ifPresent(e -> electricBalloonDTOS.add(electricBalloonMapper.mapEntityToDto(e)));
         if (electricBalloonDTOS.isEmpty()) {
@@ -46,8 +46,8 @@ public class ElectricBalloonController {
         return new ResponseEntity<>(electricBalloonDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("city/{cityId}/date/{date}")
-    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @PathVariable UUID cityId) {
+    @GetMapping
+    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@RequestParam @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam UUID cityId) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
         electricBalloonService.findAllFilledByDateAndCity(date, cityId).ifPresent(e -> electricBalloonDTOS.add(electricBalloonMapper.mapEntityToDto(e)));
         if (electricBalloonDTOS.isEmpty()) {
