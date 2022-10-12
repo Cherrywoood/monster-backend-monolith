@@ -3,10 +3,9 @@ package ru.itmo.monsters.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.controller.exception.NotFoundException;
+import ru.itmo.monsters.mapper.DoorMapper;
 import ru.itmo.monsters.model.DoorEntity;
-import ru.itmo.monsters.model.FearActionEntity;
 import ru.itmo.monsters.repository.DoorRepository;
-import ru.itmo.monsters.repository.FearActionRepository;
 
 import java.util.UUID;
 
@@ -15,6 +14,7 @@ import java.util.UUID;
 public class DoorService {
 
     private final DoorRepository doorRepository;
+    private final DoorMapper doorMapper;
 
     private final String EXC_MES_ID = "none door was found by id";
 
@@ -23,5 +23,16 @@ public class DoorService {
         return doorRepository.findById(doorId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + doorId)
         );
+    }
+
+    public DoorEntity save(UUID id) {
+        DoorEntity doorEntity;
+        if (doorRepository.findById(id).isPresent()) {
+            return doorRepository.findById(id).get();
+        } else {
+            doorEntity = doorRepository.save(new DoorEntity());
+            doorEntity.setId(id);
+        }
+        return doorEntity;
     }
 }

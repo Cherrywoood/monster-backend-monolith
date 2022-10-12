@@ -23,7 +23,4 @@ public class DoorEntity {
 
     @Column(name = "status", nullable = false)
     private boolean isActive = false;
-
-    @OneToMany(mappedBy = "doorEntity")
-    private List<FearActionEntity> fearActions;
 }

@@ -17,7 +17,6 @@ import java.util.UUID;
 public class ChildEntity {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 

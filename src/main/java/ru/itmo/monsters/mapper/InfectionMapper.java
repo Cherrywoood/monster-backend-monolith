@@ -5,13 +5,12 @@ import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.InfectionDTO;
 import ru.itmo.monsters.model.InfectionEntity;
 import ru.itmo.monsters.service.InfectedThingService;
-import ru.itmo.monsters.service.MonsterService;
 
 @RequiredArgsConstructor
 @Component
 public class InfectionMapper {
 
-    private final MonsterService monsterService;
+    //private final MonsterService monsterService;
     private final InfectedThingService infectedThingService;
 
     public InfectionDTO mapEntityToDto(InfectionEntity infectionEntity) {
@@ -24,13 +23,13 @@ public class InfectionMapper {
                 .build();
     }
 
-    public InfectionEntity mapDtoToEntity(InfectionDTO infectionDTO) {
-        return InfectionEntity.builder()
-                .id(infectionDTO.getId())
-                .monster(monsterService.findById(infectionDTO.getMonsterId()))
-                .infectedThing(infectedThingService.findById(infectionDTO.getInfectedThing()))
-                .infectionDate(infectionDTO.getInfectionDate())
-                .cureDate(infectionDTO.getCureDate())
-                .build();
-    }
+//    public InfectionEntity mapDtoToEntity(InfectionDTO infectionDTO) {
+//        return InfectionEntity.builder()
+//                .id(infectionDTO.getId())
+//                .monster(monsterService.findById(infectionDTO.getMonsterId()))
+//                .infectedThing(infectedThingService.findById(infectionDTO.getInfectedThing()))
+//                .infectionDate(infectionDTO.getInfectionDate())
+//                .cureDate(infectionDTO.getCureDate())
+//                .build();
+//    }
 }
