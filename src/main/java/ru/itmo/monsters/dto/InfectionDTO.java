@@ -20,7 +20,7 @@ public class InfectionDTO {
     private MonsterDTO monster;
 
     @NotNull(message = "shouldn't be null")
-    private InfectedThingDTO infectedThing;
+    private String infectedThing;
 
     @NotNull(message = "shouldn't be null")
     private Date infectionDate;

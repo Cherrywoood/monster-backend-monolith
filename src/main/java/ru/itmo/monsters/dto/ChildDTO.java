@@ -27,5 +27,5 @@ public class ChildDTO {
     private String gender;
 
     @NotNull(message = "shouldn't be null")
-    private DoorDTO door;
+    private String door;
 }

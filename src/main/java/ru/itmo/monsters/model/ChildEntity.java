@@ -1,9 +1,17 @@
 package ru.itmo.monsters.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.UUID;
 
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "child")
 public class ChildEntity {

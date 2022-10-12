@@ -16,5 +16,5 @@ public class InfectedThingDTO {
     private String name;
 
     @NotNull(message = "shouldn't be null")
-    private DoorDTO door;
+    private String door;
 }
