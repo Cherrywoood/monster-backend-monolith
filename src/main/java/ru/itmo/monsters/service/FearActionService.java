@@ -8,7 +8,6 @@ import ru.itmo.monsters.mapper.FearActionMapper;
 import ru.itmo.monsters.model.FearActionEntity;
 import ru.itmo.monsters.repository.FearActionRepository;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor

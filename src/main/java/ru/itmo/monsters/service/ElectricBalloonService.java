@@ -8,7 +8,6 @@ import ru.itmo.monsters.mapper.ElectricBalloonMapper;
 import ru.itmo.monsters.model.ElectricBalloonEntity;
 import ru.itmo.monsters.repository.ElectricBalloonRepository;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;

@@ -11,7 +11,6 @@ import ru.itmo.monsters.repository.ElectricBalloonRepository;
 import ru.itmo.monsters.repository.MonsterRepository;
 
 import javax.persistence.EntityExistsException;
-import javax.transaction.Transactional;
 import java.util.*;
 
 @RequiredArgsConstructor

@@ -9,7 +9,6 @@ import ru.itmo.monsters.model.CityEntity;
 import ru.itmo.monsters.repository.CityRepository;
 
 import javax.persistence.EntityExistsException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 

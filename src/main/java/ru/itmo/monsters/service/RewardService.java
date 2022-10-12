@@ -9,7 +9,6 @@ import ru.itmo.monsters.model.RewardEntity;
 import ru.itmo.monsters.repository.RewardRepository;
 
 import javax.persistence.EntityExistsException;
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -34,7 +33,7 @@ public class RewardService {
                 () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
         );
     }
-    
+
     public RewardEntity updateById(UUID rewardId, RewardDTO rewardDTO) {
         rewardRepository.findById(rewardId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
