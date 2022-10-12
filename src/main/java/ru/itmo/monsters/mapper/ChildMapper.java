@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.ChildDTO;
 import ru.itmo.monsters.model.ChildEntity;
+import ru.itmo.monsters.repository.DoorRepository;
 import ru.itmo.monsters.service.DoorService;
 
 @RequiredArgsConstructor

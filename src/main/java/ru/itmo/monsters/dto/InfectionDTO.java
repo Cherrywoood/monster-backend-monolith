@@ -17,10 +17,10 @@ public class InfectionDTO {
     private UUID id;
 
     @NotNull(message = "shouldn't be null")
-    private MonsterDTO monster;
+    private UUID monsterId;
 
     @NotNull(message = "shouldn't be null")
-    private String infectedThing;
+    private UUID infectedThing;
 
     @NotNull(message = "shouldn't be null")
     private Date infectionDate;
