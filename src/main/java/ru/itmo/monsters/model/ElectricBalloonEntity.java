@@ -23,9 +23,10 @@ public class ElectricBalloonEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fear_action_id")
+    @ToString.Exclude
     private FearActionEntity fearActionEntity;
 
-    @NotNull(message = "shouldn't be empty")
+    @NotNull(message = "shouldn't be null")
     @ManyToOne
     @JoinColumn(name = "city_id")
     private CityEntity cityEntity;

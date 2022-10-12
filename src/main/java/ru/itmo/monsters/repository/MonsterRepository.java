@@ -16,6 +16,8 @@ public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
 
     Optional<MonsterEntity> findAllByJob(Job job);
 
+    Optional<MonsterEntity> findByEmail(String email);
+
     @Query("select m from MonsterEntity m " +
             "join FearActionEntity " +
             "on m.id=FearActionEntity.monsterEntity.id " +

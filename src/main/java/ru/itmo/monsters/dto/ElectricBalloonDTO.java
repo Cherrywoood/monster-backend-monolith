@@ -4,7 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Getter
@@ -12,11 +14,12 @@ import java.util.UUID;
 @Builder
 public class ElectricBalloonDTO {
 
-    @NotNull(message = "shouldn't be null")
     private UUID id;
 
-    private FearActionDTO fearActionDTO;
-
     @NotNull(message = "shouldn't be null")
-    private CityDTO cityDTO;
+    private UUID fearActionId;
+
+    @NotBlank(message = "shouldn't be empty")
+    @Size(max = 20, message = "shouldn't exceed 20 characters")
+    private String cityName;
 }
