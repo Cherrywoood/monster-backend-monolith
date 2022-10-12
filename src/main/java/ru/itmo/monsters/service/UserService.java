@@ -2,7 +2,7 @@ package ru.itmo.monsters.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.itmo.monsters.conroller.exception.NotFoundException;
+import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.UserDTO;
 import ru.itmo.monsters.mapper.UserMapper;
 import ru.itmo.monsters.model.RoleEntity;

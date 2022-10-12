@@ -2,7 +2,7 @@ package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.itmo.monsters.conroller.exception.NotFoundException;
+import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.ElectricBalloonDTO;
 import ru.itmo.monsters.mapper.ElectricBalloonMapper;
 import ru.itmo.monsters.model.ElectricBalloonEntity;

@@ -1,4 +1,4 @@
-package ru.itmo.monsters.conroller.exception;
+package ru.itmo.monsters.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;

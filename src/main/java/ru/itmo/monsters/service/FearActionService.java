@@ -2,7 +2,7 @@ package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.itmo.monsters.conroller.exception.NotFoundException;
+import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.FearActionDTO;
 import ru.itmo.monsters.mapper.FearActionMapper;
 import ru.itmo.monsters.model.FearActionEntity;
