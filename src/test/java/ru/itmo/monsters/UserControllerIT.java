@@ -8,16 +8,14 @@ import ru.itmo.monsters.dto.PageDTO;
 import ru.itmo.monsters.dto.UserRequestDTO;
 import ru.itmo.monsters.dto.UserResponseDTO;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserControllerIT extends AbstractIntegrationTest {
     private static final String URL = "/users";
     private static final String NO_EXIST_USER_LOGIN = "floppa";
+    private static final UUID NO_EXIST_USER_ID = UUID.fromString("78a87ecf-b365-47e9-99d2-dfdd17fc06b5");
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
@@ -242,38 +240,37 @@ class UserControllerIT extends AbstractIntegrationTest {
     }
 
     @Test
-    void updateUserByRole() {
+    void updateUser() {
         HttpHeaders headersWithToken = authInfo
                 .addJwtTokenToHeader(authInfo.getAuthAdminLogin(), authInfo.getAuthAdminPassword(), restTemplate, "/auth");
 
-        String login = "katya";
+        String id = "78a87ecf-b365-47e9-99d2-dfdd17fc06b4";
         String role = "ADMIN";
         Map<String, String> request = new HashMap<>();
         request.put("role", role);
 
         ResponseEntity<UserResponseDTO> response = restTemplate.exchange(
-                URL + "/" + login,
+                URL + "/" + id,
                 HttpMethod.PATCH,
                 new HttpEntity<>(request, headersWithToken),
                 UserResponseDTO.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(login, Objects.requireNonNull(response.getBody()).getLogin());
         assertEquals(role, Objects.requireNonNull(response.getBody()).getRole());
 
-        rollBackUpdate(login, role, headersWithToken);
+        rollBackUpdate(id, headersWithToken);
 
     }
 
     @Test
-    void updateUserByRoleWithoutAuth() {
-        String login = "katya";
+    void updateUserWithoutAuth() {
+        String id = "78a87ecf-b365-47e9-99d2-dfdd17fc06b4";
         String role = "ADMIN";
         Map<String, String> request = new HashMap<>();
         request.put("role", role);
 
         ResponseEntity<Object> response = restTemplate.exchange(
-                URL + "/" + login,
+                URL + "/" + id,
                 HttpMethod.PATCH,
                 new HttpEntity<>(request),
                 Object.class);
@@ -282,7 +279,7 @@ class UserControllerIT extends AbstractIntegrationTest {
     }
 
     @Test
-    void updateNoExistsUserByRole() {
+    void updateNoExistsUser() {
         HttpHeaders headersWithToken = authInfo
                 .addJwtTokenToHeader(authInfo.getAuthAdminLogin(), authInfo.getAuthAdminPassword(), restTemplate, "/auth");
 
@@ -291,27 +288,27 @@ class UserControllerIT extends AbstractIntegrationTest {
         request.put("role", role);
 
         ResponseEntity<Map> response = restTemplate.exchange(
-                URL + "/" + NO_EXIST_USER_LOGIN,
+                URL + "/" + NO_EXIST_USER_ID,
                 HttpMethod.PATCH,
                 new HttpEntity<>(request, headersWithToken),
                 Map.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals("user not found by login " + NO_EXIST_USER_LOGIN, Objects.requireNonNull(response.getBody()).get("message"));
+        assertEquals("user not found by login " + NO_EXIST_USER_ID, Objects.requireNonNull(response.getBody()).get("message"));
     }
 
     @Test
-    void updateUserByRoleWithNoAdminRole() {
+    void updateUserBWithNoAdminRole() {
         HttpHeaders headersWithToken = authInfo
                 .addJwtTokenToHeader(authInfo.getAuthNoAdminLogin(), authInfo.getAuthNoAdminPassword(), restTemplate, "/auth");
 
-        String login = "katya";
+        String id = "78a87ecf-b365-47e9-99d2-dfdd17fc06b4";
         String role = "ADMIN";
         Map<String, String> request = new HashMap<>();
         request.put("role", role);
 
         ResponseEntity<Object> response = restTemplate.exchange(
-                URL + "/" + login,
+                URL + "/" + id,
                 HttpMethod.PATCH,
                 new HttpEntity<>(request, headersWithToken),
                 Object.class);
@@ -465,12 +462,12 @@ class UserControllerIT extends AbstractIntegrationTest {
                 Object.class);
     }
 
-    void rollBackUpdate(String login, String role, HttpHeaders headersWithToken) {
+    void rollBackUpdate(String id, HttpHeaders headersWithToken) {
         Map<String, String> request = new HashMap<>();
         request.put("role", "SCARER");
 
         restTemplate.exchange(
-                URL + "/" + login,
+                URL + "/" + id,
                 HttpMethod.PATCH,
                 new HttpEntity<>(request, headersWithToken),
                 Object.class);
