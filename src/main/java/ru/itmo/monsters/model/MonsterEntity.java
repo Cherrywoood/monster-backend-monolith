@@ -72,6 +72,9 @@ public class MonsterEntity {
     @ToString.Exclude
     private List<RewardEntity> rewards;
 
+    @OneToMany(mappedBy = "monster")
+    private List<InfectionEntity> infections;
+
     @OneToMany(mappedBy = "monsterEntity")
     @ToString.Exclude
     private List<FearActionEntity> fearActions;
