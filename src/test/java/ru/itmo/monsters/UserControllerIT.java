@@ -294,7 +294,7 @@ class UserControllerIT extends AbstractIntegrationTest {
                 Map.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals("user not found by login " + NO_EXIST_USER_ID, Objects.requireNonNull(response.getBody()).get("message"));
+        assertEquals("user not found by id " + NO_EXIST_USER_ID, Objects.requireNonNull(response.getBody()).get("message"));
     }
 
     @Test

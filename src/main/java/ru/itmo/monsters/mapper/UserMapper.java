@@ -15,7 +15,6 @@ import java.util.Map;
 @Component
 public class UserMapper {
     private final ModelMapper modelMapper;
-    private final RoleService roleService;
 
     public UserResponseDTO mapEntityToDto(UserEntity userEntity) {
         UserResponseDTO userResponseDTO = modelMapper.map(userEntity, UserResponseDTO.class);
@@ -23,14 +22,13 @@ public class UserMapper {
         return userResponseDTO;
     }
 
-    public UserEntity mapDtoToEntity(UserRequestDTO userRequestDTO) {
-        RoleEntity roleEntity = roleService.findByName(userRequestDTO.getRole());
+    public UserEntity mapDtoToEntity(UserRequestDTO userRequestDTO, RoleEntity roleEntity) {
         UserEntity userEntity = modelMapper.map(userRequestDTO, UserEntity.class);
         userEntity.setRole(roleEntity);
         return userEntity;
     }
 
-    public UserEntity update(Map<String, String> updates, UserEntity userEntity) {
+    public UserEntity update(Map<String, String> updates, UserEntity userEntity, RoleService roleService) {
         String role = updates.get("role");
         String password = updates.get("password");
         String login = updates.get("login");

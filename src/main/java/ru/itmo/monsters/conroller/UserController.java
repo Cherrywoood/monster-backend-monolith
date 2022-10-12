@@ -61,7 +61,7 @@ public class UserController {
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserResponseDTO updateById(@RequestBody Map<String, String> updates, @PathVariable UUID id) {
-        return userMapper.mapEntityToDto(userService.updateByLogin(updates, id));
+        return userMapper.mapEntityToDto(userService.updateById(updates, id));
     }
 
     @DeleteMapping("/{login}")

@@ -38,7 +38,9 @@ public class UserService {
         if (userRepository.findByLogin(userRequestDTO.getLogin()).isPresent()) {
             throw new EntityExistsException(EXC_EXIST);
         }
-        UserEntity userEntity = mapper.mapDtoToEntity(userRequestDTO);
+
+        RoleEntity roleEntity = roleService.findByName(userRequestDTO.getRole());
+        UserEntity userEntity = mapper.mapDtoToEntity(userRequestDTO, roleEntity);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userRepository.save(userEntity);
     }
@@ -63,12 +65,12 @@ public class UserService {
         } else return userRepository.findAll(pageable);
     }
 
-    public UserEntity updateByLogin(Map<String, String> updates, UUID id) {
+    public UserEntity updateById(Map<String, String> updates, UUID id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(EXC_MES_LOGIN + " " + id)
+                () -> new NotFoundException(EXC_MES_ID + " " + id)
         );
         return userRepository.save(
-                mapper.update(updates, userEntity)
+                mapper.update(updates, userEntity, roleService)
         );
     }
 
