@@ -1,9 +1,17 @@
 package ru.itmo.monsters.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "door")
 public class DoorEntity {
