@@ -6,12 +6,10 @@ spring:
     name: monster company backend
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/monstercompany
-    username: postgres
-    password: 12345
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:monster_company}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:12345}
   jpa:
-    hibernate:
-      ddl-auto: update
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -20,6 +18,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
+
 jwt:
   secret: spring
   expiration: 3600000

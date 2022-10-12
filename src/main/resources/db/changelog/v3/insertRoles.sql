@@ -1,0 +1,6 @@
+INSERT INTO ROLES
+VALUES ('2835e28c-06ad-404c-8248-c51fe7cba310', 'SCARER'),
+       ('8c776de5-3f82-4c7d-8ae8-210f13193b52', 'CLEANER'),
+       ('074be971-a5d5-449a-97dc-f2cc2bb028ac', 'SCARE ASSISTANT'),
+       ('25b345da-c2f9-4079-842f-bdaac7e44aa5', 'DISINFECTOR'),
+       ('e5cd8334-cb47-4c86-b25e-365227300289', 'RECRUITER');
