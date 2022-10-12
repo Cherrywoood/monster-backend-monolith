@@ -30,7 +30,6 @@ public class FearActionService {
         );
     }
 
-    @Transactional
     public FearActionEntity updateById(UUID fearActionId, FearActionDTO fearActionDTO) {
         fearActionRepository.findById(fearActionId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + fearActionId)

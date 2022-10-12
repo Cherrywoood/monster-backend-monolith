@@ -32,7 +32,6 @@ public class CityService {
         return cityRepository.save(cityMapper.mapDtoToEntity(cityDTO));
     }
 
-    @Transactional
     public CityEntity updateById(UUID cityId, CityDTO cityDTO) {
         cityRepository.findById(cityId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + cityId)

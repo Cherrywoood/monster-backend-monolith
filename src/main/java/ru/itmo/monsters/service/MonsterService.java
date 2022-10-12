@@ -38,7 +38,6 @@ public class MonsterService {
         );
     }
 
-    @Transactional
     public MonsterEntity updateJobById(Job job, UUID monsterId) {
         MonsterEntity monsterEntity = monsterRepository.findById(monsterId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)
@@ -72,7 +71,6 @@ public class MonsterService {
         return monsters;
     }
 
-    @Transactional
     public MonsterEntity updateById(UUID monsterId, MonsterDTO monsterDTO) {
         monsterRepository.findById(monsterId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)

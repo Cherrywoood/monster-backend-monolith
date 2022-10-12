@@ -34,8 +34,7 @@ public class RewardService {
                 () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
         );
     }
-
-    @Transactional
+    
     public RewardEntity updateById(UUID rewardId, RewardDTO rewardDTO) {
         rewardRepository.findById(rewardId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)

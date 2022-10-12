@@ -40,7 +40,6 @@ public class ElectricBalloonService {
         return electricBalloonRepository.findAllFilledByDateAndCity(date, citiId);
     }
 
-    @Transactional
     public ElectricBalloonEntity updateById(UUID electricBalloonId, ElectricBalloonDTO electricBalloonDTO) {
         electricBalloonRepository.findById(electricBalloonId).orElseThrow(
                 () -> new NotFoundException(EXC_MES_ID + ": " + electricBalloonId)
