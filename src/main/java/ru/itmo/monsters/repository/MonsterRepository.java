@@ -8,6 +8,7 @@ import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.MonsterEntity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,16 +20,15 @@ public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
     Optional<MonsterEntity> findByEmail(String email);
 
     @Query("select m from MonsterEntity m " +
-            "join FearActionEntity " +
-            "on m.id=FearActionEntity.monsterEntity.id " +
-            "where FearActionEntity.date=:date")
+            "join m.fearActions f " +
+            "where f.date=:date")
     Optional<MonsterEntity> findAllByDateOfFearAction(@Param("date") Date date);
 
     @Query("select m from MonsterEntity m " +
-            "join InfectionEntity " +
-            "on m.id=InfectionEntity.monster.id  " +
-            "where InfectionEntity.infectionDate<=:date " +
-            "and InfectionEntity.cureDate>:date")
+            "join m.infections i " +
+            "where i.infectionDate<=:date " +
+            "and i.cureDate>:date")
     Optional<MonsterEntity> findAllByInfectionDate(@Param("date") Date date);
+
 
 }
