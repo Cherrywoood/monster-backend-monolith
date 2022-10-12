@@ -17,13 +17,13 @@ public interface ElectricBalloonRepository extends JpaRepository<ElectricBalloon
     @Query("select e from ElectricBalloonEntity e " +
             "join e.fearActionEntity f " +
             "where f.date=:date")
-    List<ElectricBalloonEntity> findAllBalloonsFallenByDate(@Param("date") Date date);
+    Optional<ElectricBalloonEntity> findAllFilledByDate(@Param("date") Date date);
 
     @Query("select e from ElectricBalloonEntity e " +
             "join e.fearActionEntity f " +
             "where f.date=:date " +
             "and e.cityEntity.id=:cityId")
-    List<ElectricBalloonEntity> findAllBalloonsFallenByDateAndCity(@Param("date") Date date, @Param("cityId") UUID cityId);
+    Optional<ElectricBalloonEntity> findAllFilledByDateAndCity(@Param("date") Date date, @Param("cityId") UUID cityId);
 
 
     @Query("select e from ElectricBalloonEntity e " +
