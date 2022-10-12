@@ -1,4 +1,4 @@
-package ru.itmo.monsters.conroller;
+package ru.itmo.monsters.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

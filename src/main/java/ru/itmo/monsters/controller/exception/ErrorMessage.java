@@ -1,4 +1,4 @@
-package ru.itmo.monsters.conroller.exception;
+package ru.itmo.monsters.controller.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

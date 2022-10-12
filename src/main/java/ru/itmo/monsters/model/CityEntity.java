@@ -29,5 +29,6 @@ public class CityEntity {
     private String name;
 
     @OneToMany(mappedBy = "cityEntity")
+    @ToString.Exclude
     private List<ElectricBalloonEntity> balloons;
 }
