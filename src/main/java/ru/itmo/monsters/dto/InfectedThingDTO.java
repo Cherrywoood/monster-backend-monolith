@@ -1,12 +1,16 @@
 package ru.itmo.monsters.dto;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@Builder
 public class InfectedThingDTO {
 
     private UUID id;
@@ -16,5 +20,5 @@ public class InfectedThingDTO {
     private String name;
 
     @NotNull(message = "shouldn't be null")
-    private String door;
+    private UUID doorId;
 }

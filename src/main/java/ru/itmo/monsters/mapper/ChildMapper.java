@@ -19,7 +19,7 @@ public class ChildMapper {
                 .name(childEntity.getName())
                 .dob(childEntity.getDob())
                 .gender(childEntity.getGender())
-                .doorId(childEntity.getDoor().getId().toString())
+                .doorId(childEntity.getDoor().getId())
                 .build();
     }
 
@@ -29,7 +29,7 @@ public class ChildMapper {
                 .name(childDTO.getName())
                 .dob(childDTO.getDob())
                 .gender(childDTO.getGender())
-                .door(doorService.findById(childDTO.getId()))
+                .door(doorService.findById(childDTO.getDoorId()))
                 .build();
     }
 }
