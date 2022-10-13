@@ -6,10 +6,7 @@ import lombok.Setter;
 import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.enums.Job;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +40,7 @@ public class MonsterDTO {
     private String email;
 
     @NotNull(message = "shouldn't be null")
-    @Size(message = "shouldn't be less than 0")
+    @Min(value = 0, message = "shouldn't be less than 0")
     private int salary;
 
     @NotNull(message = "can be empty, but shouldn't be null")
