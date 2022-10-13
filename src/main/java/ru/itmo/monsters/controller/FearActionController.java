@@ -11,7 +11,7 @@ import ru.itmo.monsters.service.FearActionService;
 import javax.validation.Valid;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("fear-actions")
 public class FearActionController {
