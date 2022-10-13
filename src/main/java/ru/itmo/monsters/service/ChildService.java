@@ -27,17 +27,9 @@ public class ChildService {
         return childRepository.save(childEntity);
     }
 
-//    public List<ChildEntity> getAll() {
-//        return childRepository.findAll();
-//    }
-
     public Page<ChildEntity> getAll(int page, int size) {
         return childRepository.findAll(PageRequest.of(page, size));
     }
-
-//    public List<ChildEntity> getScaredChildrenByDate(Date date) {
-//        return childRepository.findAllScaredChildrenByDate(date);
-//    }
 
     public Page<ChildEntity> getScaredChildrenByDate(int page, int size, Date date) {
         Pageable pageable = PageRequest.of(page, size);
