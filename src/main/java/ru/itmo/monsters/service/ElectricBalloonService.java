@@ -1,6 +1,9 @@
 package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.ElectricBalloonDTO;
@@ -31,12 +34,12 @@ public class ElectricBalloonService {
         );
     }
 
-    public Optional<ElectricBalloonEntity> findAllFilledByDate(Date date) {
-        return electricBalloonRepository.findAllFilledByDate(date);
+    public Page<ElectricBalloonEntity> findAllFilledByDate(Date date, int page, int size) {
+        return electricBalloonRepository.findAllFilledByDate(date, PageRequest.of(page, size));
     }
 
-    public Optional<ElectricBalloonEntity> findAllFilledByDateAndCity(Date date, UUID citiId) {
-        return electricBalloonRepository.findAllFilledByDateAndCity(date, citiId);
+    public Page<ElectricBalloonEntity> findAllFilledByDateAndCity(Date date, UUID citiId, Pageable pageable) {
+        return electricBalloonRepository.findAllFilledByDateAndCity(date, citiId, pageable);
     }
 
     public ElectricBalloonEntity updateById(UUID electricBalloonId, ElectricBalloonDTO electricBalloonDTO) {

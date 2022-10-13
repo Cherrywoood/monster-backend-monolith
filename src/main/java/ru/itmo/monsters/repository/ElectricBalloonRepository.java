@@ -1,5 +1,7 @@
 package ru.itmo.monsters.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,19 +18,19 @@ public interface ElectricBalloonRepository extends JpaRepository<ElectricBalloon
     @Query("select e from ElectricBalloonEntity e " +
             "join e.fearActionEntity f " +
             "where f.date=:date")
-    Optional<ElectricBalloonEntity> findAllFilledByDate(@Param("date") Date date);
+    Page<ElectricBalloonEntity> findAllFilledByDate(@Param("date") Date date, Pageable pageable);
 
     @Query("select e from ElectricBalloonEntity e " +
             "join e.fearActionEntity f " +
             "where f.date=:date " +
             "and e.cityEntity.id=:cityId")
-    Optional<ElectricBalloonEntity> findAllFilledByDateAndCity(@Param("date") Date date, @Param("cityId") UUID cityId);
+    Page<ElectricBalloonEntity> findAllFilledByDateAndCity(@Param("date") Date date, @Param("cityId") UUID cityId, Pageable pageable);
 
 
     @Query("select e from ElectricBalloonEntity e " +
             "join e.fearActionEntity f " +
             "where f.monsterEntity.id=:monsterId")
-    Optional<ElectricBalloonEntity> findAllByMonsterId(@Param("monsterId") UUID monsterId);
+    Page<ElectricBalloonEntity> findAllByMonsterId(@Param("monsterId") UUID monsterId, Pageable pageable);
 
 }
 

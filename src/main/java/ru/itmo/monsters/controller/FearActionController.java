@@ -22,14 +22,14 @@ public class FearActionController {
 
     @GetMapping("{fearActionId}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT') and hasAuthority('RECRUITER')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
     public FearActionDTO getFearAction(@PathVariable UUID fearActionId) {
         return fearActionMapper.mapEntityToDto(fearActionService.findById(fearActionId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT')")
     public FearActionDTO addFearAction(@Valid @RequestBody FearActionDTO fearActionDTO) {
         return fearActionMapper.mapEntityToDto(fearActionService.save(fearActionDTO));
     }

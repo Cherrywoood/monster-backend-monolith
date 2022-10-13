@@ -22,7 +22,7 @@ public class RewardController {
 
     @GetMapping("{rewardId}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT') and hasAuthority('RECRUITER')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
     public RewardDTO getReward(@PathVariable UUID rewardId) {
         return rewardMapper.mapEntityToDto(rewardService.findById(rewardId));
     }

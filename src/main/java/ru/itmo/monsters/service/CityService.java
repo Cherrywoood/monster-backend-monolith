@@ -1,6 +1,8 @@
 package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.CityDTO;
@@ -39,8 +41,8 @@ public class CityService {
         return cityRepository.save(cityMapper.mapDtoToEntity(cityDTO));
     }
 
-    public List<CityEntity> findAll() {
-        return cityRepository.findAll();
+    public Page<CityEntity> findAll(int page, int size) {
+        return cityRepository.findAll(PageRequest.of(page, size));
     }
 
     public CityEntity findByName(String cityName) {

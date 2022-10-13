@@ -1,6 +1,8 @@
 package ru.itmo.monsters.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.monster.MonsterDTO;
@@ -35,8 +37,8 @@ public class MonsterService {
         return monsterRepository.save(monsterMapper.mapDtoToEntity(monsterDTO));
     }
 
-    public List<MonsterEntity> findAll() {
-        return monsterRepository.findAll();
+    public Page<MonsterEntity> findAll(int page, int size) {
+        return monsterRepository.findAll(PageRequest.of(page, size));
     }
 
     public MonsterEntity findById(UUID monsterId) {
