@@ -38,5 +38,6 @@ public class FearActionEntity {
     private Date date;
 
     @OneToMany(mappedBy = "fearActionEntity")
+    @ToString.Exclude
     private List<ElectricBalloonEntity> balloons;
 }

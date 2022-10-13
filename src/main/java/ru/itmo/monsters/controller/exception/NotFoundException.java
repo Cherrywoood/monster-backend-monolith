@@ -1,4 +1,4 @@
-package ru.itmo.monsters.conroller.exception;
+package ru.itmo.monsters.controller.exception;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {

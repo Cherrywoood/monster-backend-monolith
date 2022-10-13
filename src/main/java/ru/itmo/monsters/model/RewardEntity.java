@@ -34,5 +34,6 @@ public class RewardEntity {
     private int money;
 
     @ManyToMany(mappedBy = "rewards")
+    @ToString.Exclude
     private List<MonsterEntity> monsters;
 }

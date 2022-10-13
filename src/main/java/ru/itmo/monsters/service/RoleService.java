@@ -3,7 +3,7 @@ package ru.itmo.monsters.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.itmo.monsters.conroller.exception.NotFoundException;
+import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.RoleDTO;
 import ru.itmo.monsters.mapper.RoleMapper;
 import ru.itmo.monsters.model.RoleEntity;
