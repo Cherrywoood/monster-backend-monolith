@@ -1,6 +1,8 @@
 package ru.itmo.monsters.model;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.enums.Job;
 
@@ -66,6 +68,7 @@ public class MonsterEntity {
             joinColumns = @JoinColumn(name = "monster_id"),
             inverseJoinColumns = @JoinColumn(name = "reward_id")
     )
+    @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<RewardEntity> rewards;
 
@@ -74,6 +77,7 @@ public class MonsterEntity {
 
     @OneToMany(mappedBy = "monsterEntity")
     @ToString.Exclude
+    @Fetch(FetchMode.SUBSELECT)
     private List<FearActionEntity> fearActions;
 
 }

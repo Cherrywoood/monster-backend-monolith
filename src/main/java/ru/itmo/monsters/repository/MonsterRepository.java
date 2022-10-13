@@ -2,12 +2,14 @@ package ru.itmo.monsters.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.MonsterEntity;
+import ru.itmo.monsters.model.UserEntity;
 
 import java.util.Date;
 import java.util.Optional;
@@ -15,6 +17,9 @@ import java.util.UUID;
 
 @Repository
 public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
+
+    @EntityGraph(attributePaths = {"userEntity"})
+    Page<MonsterEntity> findAll(Pageable pageable);
 
     Page<MonsterEntity> findAllByJob(Job job, Pageable pageable);
 
@@ -35,6 +40,5 @@ public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
             "where i.infectionDate<=:date " +
             "and i.cureDate>:date")
     Page<MonsterEntity> findAllByInfectionDate(@Param("date") Date date, Pageable pageable);
-
 
 }
