@@ -16,7 +16,7 @@ import java.util.UUID;
 public class DoorService {
 
     private final DoorRepository doorRepository;
-    private final ChildRepository childRepository;
+    private final ChildService childService;
     private final DoorMapper doorMapper;
 
     private final String EXC_MES_ID = "none door was found by id";
@@ -47,8 +47,11 @@ public class DoorService {
     }
 
     public void deleteDoor(UUID id) {
-        childRepository.deleteByDoor(doorRepository.findById(id).get());
-        doorRepository.deleteById(id);
+        doorRepository.delete(
+                doorRepository.findById(id).orElseThrow(
+                        () -> new NotFoundException("")
+                )
+        );
     }
 
 }
