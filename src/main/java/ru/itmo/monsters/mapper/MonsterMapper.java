@@ -2,12 +2,15 @@ package ru.itmo.monsters.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.monster.MonsterDTO;
 import ru.itmo.monsters.dto.monster.MonsterRatingDTO;
 import ru.itmo.monsters.model.FearActionEntity;
 import ru.itmo.monsters.model.MonsterEntity;
 import ru.itmo.monsters.model.RewardEntity;
+import ru.itmo.monsters.service.ElectricBalloonService;
 import ru.itmo.monsters.service.FearActionService;
 import ru.itmo.monsters.service.RewardService;
 import ru.itmo.monsters.service.UserService;
@@ -22,6 +25,14 @@ public class MonsterMapper {
     private final UserService userService;
     private final RewardService rewardService;
     private final FearActionService fearActionService;
+
+    @Autowired
+    public MonsterMapper(UserService userService, ModelMapper modelMapper, @Lazy RewardService rewardService, FearActionService fearActionService) {
+        this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.rewardService = rewardService;
+        this.fearActionService = fearActionService;
+    }
 
     public MonsterDTO mapEntityToDto(MonsterEntity monsterEntity) {
         MonsterDTO monsterDTO = modelMapper.map(monsterEntity, MonsterDTO.class);
