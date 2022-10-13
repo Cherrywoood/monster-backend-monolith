@@ -5,10 +5,7 @@ import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.enums.Job;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
@@ -59,7 +56,7 @@ public class MonsterEntity {
     private String email;
 
     @NotNull(message = "shouldn't be null")
-    @Size(message = "shouldn't be less than 0")
+    @Min(value = 0, message = "shouldn't be less than 0")
     @Column(name = "salary")
     private int salary;
 
@@ -71,6 +68,9 @@ public class MonsterEntity {
     )
     @ToString.Exclude
     private List<RewardEntity> rewards;
+
+    @OneToMany(mappedBy = "monster")
+    private List<InfectionEntity> infections;
 
     @OneToMany(mappedBy = "monsterEntity")
     @ToString.Exclude

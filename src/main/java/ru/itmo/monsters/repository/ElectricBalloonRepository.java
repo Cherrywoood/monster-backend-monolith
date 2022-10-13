@@ -13,24 +13,22 @@ import java.util.UUID;
 @Repository
 public interface ElectricBalloonRepository extends JpaRepository<ElectricBalloonEntity, UUID> {
 
-    @Query(value = "select e from ElectricBalloonEntity e " +
-            "join FearActionEntity " +
-            "on e.fearActionEntity.id=FearActionEntity.id " +
-            "where FearActionEntity.date=:date", nativeQuery = true)
+    @Query("select e from ElectricBalloonEntity e " +
+            "join e.fearActionEntity f " +
+            "where f.date=:date")
     Optional<ElectricBalloonEntity> findAllFilledByDate(@Param("date") Date date);
 
-    @Query(value = "select e from ElectricBalloonEntity e " +
-            "join FearActionEntity " +
-            "on e.fearActionEntity.id=FearActionEntity.id " +
-            "where FearActionEntity.date=:date " +
-            "and e.cityEntity.id=:city_id", nativeQuery = true)
-    Optional<ElectricBalloonEntity> findAllFilledByDateAndCity(@Param("date") Date date, @Param("city_id") UUID cityId);
+    @Query("select e from ElectricBalloonEntity e " +
+            "join e.fearActionEntity f " +
+            "where f.date=:date " +
+            "and e.cityEntity.id=:cityId")
+    Optional<ElectricBalloonEntity> findAllFilledByDateAndCity(@Param("date") Date date, @Param("cityId") UUID cityId);
 
-    @Query(value = "select e from ElectricBalloonEntity e " +
-            "join FearActionEntity " +
-            "on e.fearActionEntity.id=FearActionEntity.id " +
-            "where FearActionEntity.monsterEntity.id=:monster_id", nativeQuery = true)
-    Optional<ElectricBalloonEntity> findAllByMonsterId(@Param("monster_id") UUID monsterId);
+
+    @Query("select e from ElectricBalloonEntity e " +
+            "join e.fearActionEntity f " +
+            "where f.monsterEntity.id=:monsterId")
+    Optional<ElectricBalloonEntity> findAllByMonsterId(@Param("monsterId") UUID monsterId);
 
 }
 
