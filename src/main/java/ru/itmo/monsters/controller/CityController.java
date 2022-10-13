@@ -3,6 +3,7 @@ package ru.itmo.monsters.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.CityDTO;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("cities")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class CityController {
 
     private final CityService cityService;

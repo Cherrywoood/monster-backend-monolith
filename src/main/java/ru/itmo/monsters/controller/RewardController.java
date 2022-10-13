@@ -2,6 +2,7 @@ package ru.itmo.monsters.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.RewardDTO;
@@ -21,24 +22,28 @@ public class RewardController {
 
     @GetMapping("{rewardId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT') and hasAuthority('RECRUITER')")
     public RewardDTO getReward(@PathVariable UUID rewardId) {
         return rewardMapper.mapEntityToDto(rewardService.findById(rewardId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public RewardDTO addReward(@Valid @RequestBody RewardDTO rewardDTO) {
         return rewardMapper.mapEntityToDto(rewardService.save(rewardDTO));
     }
 
     @DeleteMapping("{rewardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteReward(@PathVariable UUID rewardId) {
         rewardService.delete(rewardId);
     }
 
     @PutMapping("{rewardId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public RewardDTO putReward(@PathVariable UUID rewardId, @Valid @RequestBody RewardDTO rewardDTO) {
         return rewardMapper.mapEntityToDto(rewardService.updateById(rewardId, rewardDTO));
     }

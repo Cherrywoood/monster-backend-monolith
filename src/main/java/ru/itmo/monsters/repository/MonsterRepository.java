@@ -1,5 +1,6 @@
 package ru.itmo.monsters.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -8,15 +9,21 @@ import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.MonsterEntity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
 
-    Optional<MonsterEntity> findAllByJob(Job job);
+    List<MonsterEntity> findAllByJob(Job job);
 
     Optional<MonsterEntity> findByEmail(String email);
+
+    @Query("select m from MonsterEntity m " +
+            "join m.userEntity u " +
+            "where u.id=:userId")
+    Optional<MonsterEntity> findByUserId(@Param("userId") UUID userId);
 
     @Query("select m from MonsterEntity m " +
             "join m.fearActions f " +

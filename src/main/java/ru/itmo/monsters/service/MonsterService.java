@@ -21,14 +21,22 @@ public class MonsterService {
     private final ElectricBalloonRepository electricBalloonRepository;
     private final MonsterMapper monsterMapper;
 
-    private final String EXC_EXIST = "monster with this email already exists";
+    private final String EXC_EXIST_EMAIL = "monster with this email already exists";
+    private final String EXC_EXIST_USER = "monster with this userId already exists";
     private final String EXC_MES_ID = "none monster was found by id";
 
     public MonsterEntity save(MonsterDTO monsterDTO) {
         if (monsterRepository.findByEmail(monsterDTO.getEmail()).isPresent()) {
-            throw new EntityExistsException(EXC_EXIST + ": " + monsterDTO.getEmail());
+            throw new EntityExistsException(EXC_EXIST_EMAIL + ": " + monsterDTO.getEmail());
+        }
+        if(monsterRepository.findByUserId(monsterDTO.getUserId()).isPresent()){
+            throw new EntityExistsException(EXC_EXIST_USER + ": " + monsterDTO.getUserId());
         }
         return monsterRepository.save(monsterMapper.mapDtoToEntity(monsterDTO));
+    }
+
+    public List<MonsterEntity> findAll() {
+        return monsterRepository.findAll();
     }
 
     public MonsterEntity findById(UUID monsterId) {
@@ -55,9 +63,8 @@ public class MonsterService {
         return rating;
     }
 
-    public Optional<MonsterEntity> findAllByJob(Job job) {
-        Optional<MonsterEntity> monsters = monsterRepository.findAllByJob(job);
-        return monsters;
+    public List<MonsterEntity> findAllByJob(Job job) {
+        return monsterRepository.findAllByJob(job);
     }
 
     public Optional<MonsterEntity> findAllByDateOfFearAction(Date date) {

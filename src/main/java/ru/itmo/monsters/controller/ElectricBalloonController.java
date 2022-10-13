@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.ElectricBalloonDTO;
@@ -26,17 +27,20 @@ public class ElectricBalloonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT')")
     public ElectricBalloonDTO addElectricBalloon(@Valid @RequestBody ElectricBalloonDTO electricBalloonDTO) {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.save(electricBalloonDTO));
     }
 
     @GetMapping("{electricBalloonId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT') and hasAuthority('RECRUITER')")
     public ElectricBalloonDTO getElectricBalloon(@PathVariable UUID electricBalloonId) {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.findById(electricBalloonId));
     }
 
     @GetMapping("{date}")
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT') and hasAuthority('RECRUITER')")
     public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(required = false) UUID cityId) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
         if (cityId != null) {
@@ -52,12 +56,14 @@ public class ElectricBalloonController {
 
     @DeleteMapping("{electricBalloonId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT')")
     public void deleteElectricBalloon(@PathVariable UUID electricBalloonId) {
         electricBalloonService.delete(electricBalloonId);
     }
 
     @PutMapping("{electricBalloonId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('SCARER') and hasAuthority('SCARE ASSISTANT')")
     public ElectricBalloonDTO putElectricBalloon(@PathVariable UUID electricBalloonId, @Valid @RequestBody ElectricBalloonDTO electricBalloonDTO) {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.updateById(electricBalloonId, electricBalloonDTO));
     }
