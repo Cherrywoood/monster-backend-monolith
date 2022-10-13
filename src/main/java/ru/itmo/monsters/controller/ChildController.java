@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.*;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
 @RequestMapping("child")
 public class ChildController {
 
@@ -31,6 +33,7 @@ public class ChildController {
     private final ChildMapper childMapper;
     private final DoorService doorService;
     private final PageMapper<ChildDTO> pageMapper;
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,6 +52,7 @@ public class ChildController {
 //                .toList();
 //    }
 
+    @PreAuthorize("hasAuthority('SCARE')")
     @GetMapping("/children")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PageDTO<ChildDTO>> getChildren(@RequestParam(defaultValue = "0")
@@ -73,6 +77,7 @@ public class ChildController {
 //                .toList();
 //    }
 
+    @PreAuthorize("hasAuthority('SCARE')")
     @GetMapping("/scared")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PageDTO<ChildDTO>> getScaredChildrenByDate(@RequestParam(defaultValue = "0")

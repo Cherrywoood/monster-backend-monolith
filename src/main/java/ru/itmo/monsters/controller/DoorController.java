@@ -2,6 +2,7 @@ package ru.itmo.monsters.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.ChildDTO;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
 @RequestMapping("doors")
 public class DoorController {
     private final DoorService doorService;
