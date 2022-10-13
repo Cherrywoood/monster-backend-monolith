@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.Map;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Validated
@@ -57,10 +58,10 @@ public class UserController {
 
     }
 
-    @PatchMapping("/{login}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponseDTO updateByRole(@RequestBody Map<String, String> roleUpdate, @PathVariable String login) {
-        return userMapper.mapEntityToDto(userService.updateRoleByLogin(roleUpdate, login));
+    public UserResponseDTO updateById(@RequestBody Map<String, String> updates, @PathVariable UUID id) {
+        return userMapper.mapEntityToDto(userService.updateById(updates, id));
     }
 
     @DeleteMapping("/{login}")
