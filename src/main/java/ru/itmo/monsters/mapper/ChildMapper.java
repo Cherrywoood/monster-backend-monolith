@@ -24,7 +24,7 @@ public class ChildMapper {
                 .id(childEntity.getId())
                 .name(childEntity.getName())
                 .dob(childEntity.getDob())
-                .gender(childEntity.getGender())
+                .gender(childEntity.getGender().toString())
                 .doorId(childEntity.getDoor().getId())
                 .build();
     }

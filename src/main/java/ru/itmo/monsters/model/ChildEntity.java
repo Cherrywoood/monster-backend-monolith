@@ -1,6 +1,7 @@
 package ru.itmo.monsters.model;
 
 import lombok.*;
+import ru.itmo.monsters.enums.Gender;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -26,8 +27,9 @@ public class ChildEntity {
     @Column(name = "date_of_birth", nullable = false)
     private Date dob;
 
-    @Column(name = "gender", nullable = false, length = 1)
-    private String gender;
+    @Column(name = "gender", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "door_id", referencedColumnName = "id", nullable = false)
