@@ -7,6 +7,7 @@ import ru.itmo.monsters.mapper.DoorMapper;
 import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.repository.DoorRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -30,5 +31,9 @@ public class DoorService {
             return doorRepository.findById(id).get();
         }
         return doorRepository.save(new DoorEntity());
+    }
+
+    public List<DoorEntity> findAllActiveDoors() {
+        return doorRepository.findAllByIsActive(true);
     }
 }

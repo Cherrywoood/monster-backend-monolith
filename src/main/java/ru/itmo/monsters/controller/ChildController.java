@@ -35,7 +35,7 @@ public class ChildController {
         return childMapper.mapEntityToDto(childService.save(childDTO, doorEntity));
     }
 
-    @GetMapping("/getChildren")
+    @GetMapping("/children")
     @ResponseStatus(HttpStatus.OK)
     public List<ChildDTO> getChildren() {
         List<ChildEntity> childEntities = childService.getAll();
@@ -45,9 +45,9 @@ public class ChildController {
                 .toList();
     }
 
-    @GetMapping("/scared/{date}")
+    @GetMapping("/scared")
     @ResponseStatus(HttpStatus.OK)
-    public List<ChildDTO> getScaredChildrenByDate(@PathVariable Date date) {
+    public List<ChildDTO> getScaredChildrenByDate(@RequestParam Date date) {
         List<ChildEntity> childEntities = childService.getScaredChildrenByDate(date);
         return childEntities
                 .stream()
