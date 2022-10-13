@@ -27,7 +27,7 @@ public class MonsterMapper {
     private final FearActionService fearActionService;
 
     @Autowired
-    public MonsterMapper(@Lazy UserService userService, @Lazy ModelMapper modelMapper, @Lazy RewardService rewardService, @Lazy FearActionService fearActionService) {
+    public MonsterMapper(UserService userService, ModelMapper modelMapper, @Lazy RewardService rewardService, FearActionService fearActionService) {
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.rewardService = rewardService;
