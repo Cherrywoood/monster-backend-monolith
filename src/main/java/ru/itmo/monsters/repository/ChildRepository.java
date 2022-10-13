@@ -15,9 +15,6 @@ import java.util.UUID;
 @Repository
 public interface ChildRepository extends JpaRepository<ChildEntity, UUID> {
 
-//    @Query(value = "select * from child c join door on c.door_id=door.id join fear_action on door.id=fear_action.door_id where fear_action.date=:date", nativeQuery = true)
-//    List<ChildEntity> findAllScaredChildrenByDate(@Param("date") Date date);
-
     @Query(value = "select * from child c join door on c.door_id=door.id join fear_action on door.id=fear_action.door_id where fear_action.date=:date", nativeQuery = true)
     Page<ChildEntity> findAllScaredChildrenByDate(@Param("date") Date date, Pageable pageable);
 

@@ -22,7 +22,6 @@ import java.sql.Date;
 
 @RestController
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
 @RequestMapping("child")
 public class ChildController {
 
@@ -32,6 +31,7 @@ public class ChildController {
     private final PageMapper<ChildDTO> pageMapper;
 
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ChildDTO addChild(@Valid @RequestBody ChildDTO childDTO) {
@@ -39,17 +39,7 @@ public class ChildController {
         return childMapper.mapEntityToDto(childService.save(childDTO, doorEntity));
     }
 
-//    @GetMapping("/children")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ChildDTO> getChildren() {
-//        List<ChildEntity> childEntities = childService.getAll();
-//        return childEntities
-//                .stream()
-//                .map((childMapper::mapEntityToDto))
-//                .toList();
-//    }
-
-    @PreAuthorize("hasAuthority('SCARE')")
+    @PreAuthorize("hasAuthority('SCARE') or hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
     @GetMapping("/children")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PageDTO<ChildDTO>> getChildren(@RequestParam(defaultValue = "0")
@@ -64,17 +54,7 @@ public class ChildController {
         }
     }
 
-//    @GetMapping("/scared")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ChildDTO> getScaredChildrenByDate(@RequestParam Date date) {
-//        List<ChildEntity> childEntities = childService.getScaredChildrenByDate(date);
-//        return childEntities
-//                .stream()
-//                .map((childMapper::mapEntityToDto))
-//                .toList();
-//    }
-
-    @PreAuthorize("hasAuthority('SCARE')")
+    @PreAuthorize("hasAuthority('SCARE') or hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
     @GetMapping("/scared")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PageDTO<ChildDTO>> getScaredChildrenByDate(@RequestParam(defaultValue = "0")
