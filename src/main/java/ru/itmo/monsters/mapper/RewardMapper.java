@@ -8,8 +8,6 @@ import ru.itmo.monsters.model.MonsterEntity;
 import ru.itmo.monsters.model.RewardEntity;
 import ru.itmo.monsters.service.MonsterService;
 
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @Component
 public class RewardMapper {
@@ -19,13 +17,13 @@ public class RewardMapper {
 
     public RewardDTO mapEntityToDto(RewardEntity rewardEntity) {
         RewardDTO rewardDTO = modelMapper.map(rewardEntity, RewardDTO.class);
-        rewardDTO.setMonstersIds(rewardEntity.getMonsters().stream().map(MonsterEntity::getId).collect(Collectors.toList()));
+        rewardDTO.setMonstersIds(rewardEntity.getMonsters().stream().map(MonsterEntity::getId).toList());
         return rewardDTO;
     }
 
     public RewardEntity mapDtoToEntity(RewardDTO rewardDTO) {
         RewardEntity rewardEntity = modelMapper.map(rewardDTO, RewardEntity.class);
-        rewardEntity.setMonsters(rewardDTO.getMonstersIds().stream().map(monsterService::findById).collect(Collectors.toList()));
+        rewardEntity.setMonsters(rewardDTO.getMonstersIds().stream().map(monsterService::findById).toList());
         return rewardEntity;
     }
 
