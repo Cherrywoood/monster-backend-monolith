@@ -35,7 +35,7 @@ public class ElectricBalloonController {
     public ElectricBalloonDTO getElectricBalloon(@PathVariable UUID electricBalloonId) {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.findById(electricBalloonId));
     }
-    
+
     @GetMapping("{date}")
     public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(required = false) UUID cityId) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
