@@ -1,8 +1,6 @@
 package ru.itmo.monsters.dto.monster;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.enums.Job;
 
@@ -14,6 +12,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MonsterDTO {
 
     private UUID id;

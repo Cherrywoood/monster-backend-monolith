@@ -1,8 +1,6 @@
 package ru.itmo.monsters.dto.monster;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MonsterRatingDTO {
 
     @NotNull(message = "shouldn't be null")
