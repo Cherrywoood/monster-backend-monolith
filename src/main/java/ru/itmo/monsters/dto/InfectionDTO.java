@@ -24,6 +24,5 @@ public class InfectionDTO {
     @NotNull(message = "shouldn't be null")
     private Date infectionDate;
 
-    @NotNull(message = "shouldn't be null")
     private Date cureDate;
 }

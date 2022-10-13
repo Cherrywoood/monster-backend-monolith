@@ -17,7 +17,7 @@ spring:
     properties:
       hibernate:
         show_sql: true
-        format_sql: true
+        format_sql: false
   liquibase:
     enabled: false
     change-log: classpath:db/changelog/db.changelog-master.yml
