@@ -16,7 +16,7 @@ import ru.itmo.monsters.service.MonsterService;
 import javax.validation.Valid;
 import java.util.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("monsters")
 public class MonsterController {
