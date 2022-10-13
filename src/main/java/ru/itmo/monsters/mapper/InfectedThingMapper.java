@@ -3,14 +3,12 @@ package ru.itmo.monsters.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.InfectedThingDTO;
+import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.model.InfectedThingEntity;
-import ru.itmo.monsters.service.DoorService;
 
 @RequiredArgsConstructor
 @Component
 public class InfectedThingMapper {
-
-    private final DoorService doorService;
 
     public InfectedThingDTO mapEntityToDto(InfectedThingEntity infectedThingEntity) {
         return InfectedThingDTO.builder()
@@ -20,11 +18,11 @@ public class InfectedThingMapper {
                 .build();
     }
 
-    public InfectedThingEntity mapDtoToEntity(InfectedThingDTO infectedThingDTO) {
+    public InfectedThingEntity mapDtoToEntity(InfectedThingDTO infectedThingDTO, DoorEntity doorEntity)  {
         return InfectedThingEntity.builder()
                 .id(infectedThingDTO.getId())
                 .name(infectedThingDTO.getName())
-                .door(doorService.findById(infectedThingDTO.getDoorId()))
+                .door(doorEntity)
                 .build();
     }
 }

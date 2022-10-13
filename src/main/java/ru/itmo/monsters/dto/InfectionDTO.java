@@ -3,7 +3,6 @@ package ru.itmo.monsters.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ru.itmo.monsters.dto.monster.MonsterDTO;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -20,7 +19,7 @@ public class InfectionDTO {
     private UUID monsterId;
 
     @NotNull(message = "shouldn't be null")
-    private UUID infectedThing;
+    private UUID infectedThingId;
 
     @NotNull(message = "shouldn't be null")
     private Date infectionDate;
