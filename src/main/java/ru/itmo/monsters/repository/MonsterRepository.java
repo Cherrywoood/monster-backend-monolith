@@ -1,5 +1,7 @@
 package ru.itmo.monsters.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +18,7 @@ import java.util.UUID;
 @Repository
 public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
 
-    List<MonsterEntity> findAllByJob(Job job);
+    Page<MonsterEntity> findAllByJob(Job job, Pageable pageable);
 
     Optional<MonsterEntity> findByEmail(String email);
 
@@ -28,13 +30,13 @@ public interface MonsterRepository extends JpaRepository<MonsterEntity, UUID> {
     @Query("select m from MonsterEntity m " +
             "join m.fearActions f " +
             "where f.date=:date")
-    Optional<MonsterEntity> findAllByDateOfFearAction(@Param("date") Date date);
+    Page<MonsterEntity> findAllByDateOfFearAction(@Param("date") Date date, Pageable pageable);
 
     @Query("select m from MonsterEntity m " +
             "join m.infections i " +
             "where i.infectionDate<=:date " +
             "and i.cureDate>:date")
-    Optional<MonsterEntity> findAllByInfectionDate(@Param("date") Date date);
+    Page<MonsterEntity> findAllByInfectionDate(@Param("date") Date date, Pageable pageable);
 
 
 }
