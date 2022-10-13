@@ -55,28 +55,26 @@ public class MonsterService {
         return monsterRepository.save(monsterEntity);
     }
 
-    public Map<MonsterEntity, Integer> getRating() {
+    public Map<MonsterEntity, Integer> getRating(int page, int size) {
         Map<MonsterEntity, Integer> rating = new HashMap<>();
         List<MonsterEntity> monsters = monsterRepository.findAll();
         for (MonsterEntity monster : monsters) {
-            int countBalloons = (int) electricBalloonRepository.findAllByMonsterId(monster.getId()).stream().count();
+            int countBalloons = (int) electricBalloonRepository.findAllByMonsterId(monster.getId(), PageRequest.of(page, size)).stream().count();
             rating.put(monster, countBalloons);
         }
         return rating;
     }
 
-    public List<MonsterEntity> findAllByJob(Job job) {
-        return monsterRepository.findAllByJob(job);
+    public Page<MonsterEntity> findAllByJob(Job job, int page, int size) {
+        return monsterRepository.findAllByJob(job, PageRequest.of(page, size));
     }
 
-    public Optional<MonsterEntity> findAllByDateOfFearAction(Date date) {
-        Optional<MonsterEntity> monsters = monsterRepository.findAllByDateOfFearAction(date);
-        return monsters;
+    public Page<MonsterEntity> findAllByDateOfFearAction(Date date, int page, int size) {
+        return monsterRepository.findAllByDateOfFearAction(date, PageRequest.of(page, size));
     }
 
-    public Optional<MonsterEntity> findAllByInfectionDate(Date date) {
-        Optional<MonsterEntity> monsters = monsterRepository.findAllByInfectionDate(date);
-        return monsters;
+    public Page<MonsterEntity> findAllByInfectionDate(Date date, int page, int size) {
+        return monsterRepository.findAllByInfectionDate(date, PageRequest.of(page, size));
     }
 
     public MonsterEntity updateById(UUID monsterId, MonsterDTO monsterDTO) {

@@ -44,9 +44,9 @@ public class MonsterController {
     @GetMapping("rating")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
-    public List<MonsterRatingDTO> getRating() {
+    public List<MonsterRatingDTO> getRating(int page, int size) {
         List<MonsterRatingDTO> ratingDTO = new ArrayList<>();
-        Map<MonsterEntity, Integer> rating = monsterService.getRating();
+        Map<MonsterEntity, Integer> rating = monsterService.getRating(page, size);
         for (MonsterEntity monster : rating.keySet()) {
             ratingDTO.add(monsterMapper.mapEntityToRatingDTO(monster, rating.get(monster)));
         }
@@ -74,40 +74,47 @@ public class MonsterController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-//    @GetMapping("job")
-//    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
-//    public ResponseEntity<List<MonsterDTO>> findAllByJob(@RequestParam Job job, @RequestParam(defaultValue = "0")
-//                                                        @Min(value = 0, message = "must not be less than zero") int page,
-//                                                         @RequestParam(defaultValue = "5")
-//                                                             @Max(value = 50, message = "must not be more than 50 characters") int size) {
-//        Page<MonsterEntity> pages = monsterService.findAllByJob(job);
-//        .forEach(m -> monsterDTOS.add(monsterMapper.mapEntityToDto(m)));
-//        if (monsterDTOS.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(monsterDTOS, HttpStatus.OK);
-//    }
+    @GetMapping("job")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
+    public ResponseEntity<PageDTO<MonsterDTO>> findAllByJob(@RequestParam Job job,
+                                                            @RequestParam(defaultValue = "0")
+                                                        @Min(value = 0, message = "must not be less than zero") int page,
+                                                         @RequestParam(defaultValue = "5")
+                                                             @Max(value = 50, message = "must not be more than 50 characters") int size) {
+
+        Page<MonsterEntity> pages = monsterService.findAllByJob(job, page, size);
+        if (pages.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
+    }
 
     @GetMapping("fear-action/{date}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
-    public ResponseEntity<List<MonsterDTO>> findAllByFearActionDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date) {
-        List<MonsterDTO> monsterDTOS = new ArrayList<>();
-        monsterService.findAllByDateOfFearAction(date).ifPresent(m -> monsterDTOS.add(monsterMapper.mapEntityToDto(m)));
-        if (monsterDTOS.isEmpty()) {
+    public ResponseEntity<PageDTO<MonsterDTO>> findAllByFearActionDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(defaultValue = "0")
+    @Min(value = 0, message = "must not be less than zero") int page,
+                                                                    @RequestParam(defaultValue = "5")
+                                                                        @Max(value = 50, message = "must not be more than 50 characters") int size) {
+
+        Page<MonsterEntity> pages = monsterService.findAllByDateOfFearAction(date, page, size);
+        if (pages.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(monsterDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
     @GetMapping("infection/{date}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
-    public ResponseEntity<List<MonsterDTO>> findAllByInfectionDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date) {
-        List<MonsterDTO> monsterDTOS = new ArrayList<>();
-        monsterService.findAllByInfectionDate(date).ifPresent(m -> monsterDTOS.add(monsterMapper.mapEntityToDto(m)));
-        if (monsterDTOS.isEmpty()) {
+    public ResponseEntity<PageDTO<MonsterDTO>> findAllByInfectionDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(defaultValue = "0")
+    @Min(value = 0, message = "must not be less than zero") int page,
+                                                                      @RequestParam(defaultValue = "5")
+                                                                          @Max(value = 50, message = "must not be more than 50 characters") int size) {
+
+        Page<MonsterEntity> pages = monsterService.findAllByInfectionDate(date, page, size);
+        if (pages.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(monsterDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
     @PatchMapping("{monsterId}")
