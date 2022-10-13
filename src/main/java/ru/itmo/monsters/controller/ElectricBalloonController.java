@@ -46,8 +46,8 @@ public class ElectricBalloonController {
         return new ResponseEntity<>(electricBalloonDTOS, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@RequestParam @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam UUID cityId) {
+    @GetMapping("{cityId}")
+    public ResponseEntity<List<ElectricBalloonDTO>> findAllFilledByDateAndCity(@RequestParam @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @PathVariable UUID cityId) {
         List<ElectricBalloonDTO> electricBalloonDTOS = new ArrayList<>();
         electricBalloonService.findAllFilledByDateAndCity(date, cityId).ifPresent(e -> electricBalloonDTOS.add(electricBalloonMapper.mapEntityToDto(e)));
         if (electricBalloonDTOS.isEmpty()) {
