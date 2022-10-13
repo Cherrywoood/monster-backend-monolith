@@ -23,7 +23,6 @@ public class ChildDTO {
     private Date dob;
 
     @NotNull(message = "shouldn't be null")
-    @Size(min = 1, max = 1, message = "must be between m or f")
     private String gender;
 
     @NotNull(message = "shouldn't be null")

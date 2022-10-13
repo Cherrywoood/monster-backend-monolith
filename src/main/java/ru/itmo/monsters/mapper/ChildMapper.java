@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.ChildDTO;
 import ru.itmo.monsters.dto.RoleDTO;
+import ru.itmo.monsters.enums.Gender;
 import ru.itmo.monsters.model.ChildEntity;
 import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.model.RoleEntity;
@@ -23,8 +24,8 @@ public class ChildMapper {
         return ChildDTO.builder()
                 .id(childEntity.getId())
                 .name(childEntity.getName())
-                .dob(childEntity.getDob())
-                .gender(childEntity.getGender().toString())
+                .dob(childEntity.getDateOfBirth())
+                .gender(childEntity.getGender())
                 .doorId(childEntity.getDoor().getId())
                 .build();
     }
@@ -40,6 +41,7 @@ public class ChildMapper {
 
     public ChildEntity mapDtoToEntity(ChildDTO childDTO, DoorEntity doorEntity) {
         ChildEntity childEntity = modelMapper.map(childDTO, ChildEntity.class);
+        childEntity.setGender(childDTO.getGender());
         childEntity.setDoor(doorEntity);
         return childEntity;
     }

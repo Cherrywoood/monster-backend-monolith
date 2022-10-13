@@ -25,11 +25,10 @@ public class ChildEntity {
     private String name;
 
     @Column(name = "date_of_birth", nullable = false)
-    private Date dob;
+    private Date dateOfBirth;
 
     @Column(name = "gender", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "door_id", referencedColumnName = "id", nullable = false)

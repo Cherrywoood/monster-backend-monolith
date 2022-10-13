@@ -26,13 +26,9 @@ public class DoorService {
     }
 
     public DoorEntity save(UUID id) {
-        DoorEntity doorEntity;
         if (doorRepository.findById(id).isPresent()) {
             return doorRepository.findById(id).get();
-        } else {
-            doorEntity = doorRepository.save(new DoorEntity());
-            doorEntity.setId(id);
         }
-        return doorEntity;
+        return doorRepository.save(new DoorEntity());
     }
 }

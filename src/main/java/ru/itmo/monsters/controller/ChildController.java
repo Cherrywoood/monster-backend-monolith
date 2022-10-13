@@ -9,6 +9,7 @@ import ru.itmo.monsters.dto.RewardDTO;
 import ru.itmo.monsters.dto.RoleDTO;
 import ru.itmo.monsters.mapper.ChildMapper;
 import ru.itmo.monsters.model.ChildEntity;
+import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.model.UserEntity;
 import ru.itmo.monsters.service.ChildService;
 import ru.itmo.monsters.service.DoorService;
@@ -16,8 +17,9 @@ import ru.itmo.monsters.service.DoorService;
 import javax.validation.Valid;
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("child")
 public class ChildController {
@@ -29,8 +31,8 @@ public class ChildController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ChildDTO addChild(@Valid @RequestBody ChildDTO childDTO) {
-        doorService.save(childDTO.getDoorId());
-        return childMapper.mapEntityToDto(childService.save(childDTO));
+        DoorEntity doorEntity = doorService.save(childDTO.getDoorId());
+        return childMapper.mapEntityToDto(childService.save(childDTO, doorEntity));
     }
 
     @GetMapping("/getChildren")

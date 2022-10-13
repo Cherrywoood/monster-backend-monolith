@@ -14,6 +14,7 @@ import javax.persistence.EntityExistsException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -23,14 +24,14 @@ public class ChildService {
     private final DoorRepository doorRepository;
     private final ChildMapper childMapper;
 
-    public ChildEntity save(ChildDTO childDTO) {
+    public ChildEntity save(ChildDTO childDTO, DoorEntity doorEntity) {
 
-        DoorEntity doorEntity;
-        if (doorRepository.findById(childDTO.getDoorId()).isPresent()) {
-            doorEntity = doorRepository.findById(childDTO.getDoorId()).get();
-        } else {
-            doorEntity = new DoorEntity();
-        }
+//        DoorEntity doorEntity;
+//        if (doorRepository.findById(childDTO.getDoorId()).isPresent()) {
+//            doorEntity = doorRepository.findById(childDTO.getDoorId()).get();
+//        } else {
+//            doorEntity = new DoorEntity();
+//        }
         ChildEntity childEntity = childMapper.mapDtoToEntity(childDTO, doorEntity);
         return childRepository.save(childEntity);
     }
