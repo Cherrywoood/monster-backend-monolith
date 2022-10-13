@@ -37,4 +37,10 @@ public class DoorController {
         return doorMapper.mapEntityToDto(doorService.changeActive(id));
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteDoor(@PathVariable UUID id) {
+        doorService.deleteDoor(id);
+    }
+
 }
