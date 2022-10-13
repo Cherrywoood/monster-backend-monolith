@@ -24,7 +24,7 @@ public class ChildMapper {
         return ChildDTO.builder()
                 .id(childEntity.getId())
                 .name(childEntity.getName())
-                .dob(childEntity.getDateOfBirth())
+                .dob(childEntity.getDob())
                 .gender(childEntity.getGender())
                 .doorId(childEntity.getDoor().getId())
                 .build();

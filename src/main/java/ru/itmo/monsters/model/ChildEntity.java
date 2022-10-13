@@ -25,7 +25,7 @@ public class ChildEntity {
     private String name;
 
     @Column(name = "date_of_birth", nullable = false)
-    private Date dateOfBirth;
+    private Date dob;
 
     @Column(name = "gender", nullable = false)
     private String gender;
