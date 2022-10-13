@@ -3,28 +3,28 @@ package ru.itmo.monsters.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ru.itmo.monsters.dto.monster.MonsterDTO;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
-public class InfectionDTO {
-
+public class ChildDTO {
     private UUID id;
 
     @NotNull(message = "shouldn't be null")
-    private UUID monsterId;
+    @Size(min = 1, message = "shouldn't be less than 1")
+    private String name;
 
     @NotNull(message = "shouldn't be null")
-    private UUID infectedThing;
+    private Date dob;
 
     @NotNull(message = "shouldn't be null")
-    private Date infectionDate;
+    private String gender;
 
     @NotNull(message = "shouldn't be null")
-    private Date cureDate;
+    private UUID doorId;
 }

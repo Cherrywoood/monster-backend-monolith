@@ -1,15 +1,23 @@
 package ru.itmo.monsters.model;
 
+import lombok.*;
+import ru.itmo.monsters.enums.Gender;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.UUID;
 
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "child")
 public class ChildEntity {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
@@ -19,7 +27,7 @@ public class ChildEntity {
     @Column(name = "date_of_birth", nullable = false)
     private Date dob;
 
-    @Column(name = "gender", nullable = false, length = 1)
+    @Column(name = "gender", nullable = false)
     private String gender;
 
     @ManyToOne(fetch = FetchType.EAGER)
