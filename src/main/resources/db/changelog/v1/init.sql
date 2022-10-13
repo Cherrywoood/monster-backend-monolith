@@ -20,12 +20,12 @@ CREATE TABLE IF NOT EXISTS MONSTER
 (
     ID            UUID PRIMARY KEY,
     NAME          VARCHAR(16)                                                    NOT NULL,
-    GENDER        GENDER                                                         NOT NULL,
+    GENDER        VARCHAR(6)                                                     NOT NULL,
     DATE_OF_BIRTH DATE                                                           NOT NULL,
-    JOB           JOB                                                            NOT NULL,
+    JOB           VARCHAR(30)                                                    NOT NULL,
     EMAIL         VARCHAR(30)                                                    NOT NULL UNIQUE,
     SALARY        INT                                                            NOT NULL,
-    USER_ID       UUID REFERENCES USERS (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    USER_ID       UUID REFERENCES USERS (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL UNIQUE,
     CHECK ((NAME != '') AND (Email != '') AND (SALARY > 0) AND (DATE_OF_BIRTH < CURRENT_DATE))
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS CHILD
 (
     ID            UUID PRIMARY KEY,
     NAME          VARCHAR(16)                                                   NOT NULL,
-    GENDER        GENDER                                                        NOT NULL,
+    GENDER        VARCHAR(6)                                                    NOT NULL,
     DATE_OF_BIRTH DATE                                                          NOT NULL,
     DOOR_ID       UUID REFERENCES DOOR (ID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
     CHECK ((NAME != '') AND (DATE_OF_BIRTH < CURRENT_DATE))
