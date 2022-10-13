@@ -11,7 +11,7 @@ import ru.itmo.monsters.service.RewardService;
 import javax.validation.Valid;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("rewards")
 public class RewardController {

@@ -1,19 +1,14 @@
 package ru.itmo.monsters.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.FearActionDTO;
 import ru.itmo.monsters.model.ElectricBalloonEntity;
 import ru.itmo.monsters.model.FearActionEntity;
-//import ru.itmo.monsters.service.DoorService;
 import ru.itmo.monsters.service.ElectricBalloonService;
 import ru.itmo.monsters.service.MonsterService;
 
-import java.util.stream.Collectors;
-
-//@RequiredArgsConstructor
 @Component
 public class FearActionMapper {
 
@@ -33,7 +28,7 @@ public class FearActionMapper {
                 .monsterId(fearActionEntity.getMonsterEntity().getId())
                 //.doorId(fearActionEntity.getDoorEntity().getId())
                 .date(fearActionEntity.getDate())
-                .balloonsIds(fearActionEntity.getBalloons().stream().map(ElectricBalloonEntity::getId).collect(Collectors.toList()))
+                .balloonsIds(fearActionEntity.getBalloons().stream().map(ElectricBalloonEntity::getId).toList())
                 .build();
     }
 
@@ -43,7 +38,7 @@ public class FearActionMapper {
                 .monsterEntity(monsterService.findById(fearActionDTO.getMonsterId()))
                 //.doorEntity(doorService.findById(fearActionDTO.getDoorId()))
                 .date(fearActionDTO.getDate())
-                .balloons(fearActionDTO.getBalloonsIds().stream().map(electricBalloonService::findById).collect(Collectors.toList()))
+                .balloons(fearActionDTO.getBalloonsIds().stream().map(electricBalloonService::findById).toList())
                 .build();
     }
 

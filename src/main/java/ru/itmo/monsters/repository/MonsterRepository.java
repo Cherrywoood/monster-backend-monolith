@@ -8,7 +8,6 @@ import ru.itmo.monsters.enums.Job;
 import ru.itmo.monsters.model.MonsterEntity;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

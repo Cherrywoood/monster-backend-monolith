@@ -1,8 +1,6 @@
 package ru.itmo.monsters.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -12,6 +10,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FearActionDTO {
 
     private UUID id;

@@ -10,7 +10,6 @@ import ru.itmo.monsters.dto.monster.MonsterRatingDTO;
 import ru.itmo.monsters.model.FearActionEntity;
 import ru.itmo.monsters.model.MonsterEntity;
 import ru.itmo.monsters.model.RewardEntity;
-import ru.itmo.monsters.service.ElectricBalloonService;
 import ru.itmo.monsters.service.FearActionService;
 import ru.itmo.monsters.service.RewardService;
 import ru.itmo.monsters.service.UserService;
@@ -38,7 +37,7 @@ public class MonsterMapper {
         MonsterDTO monsterDTO = modelMapper.map(monsterEntity, MonsterDTO.class);
         monsterDTO.setUserId(monsterEntity.getUserEntity().getId());
         monsterDTO.setFearActionsIds(monsterEntity.getFearActions().stream().map(FearActionEntity::getId).collect(Collectors.toList()));
-        monsterDTO.setRewardsIds(monsterEntity.getRewards().stream().map(RewardEntity::getId).collect(Collectors.toList()));
+        monsterDTO.setRewardsIds(monsterEntity.getRewards().stream().map(RewardEntity::getId).toList());
         return monsterDTO;
     }
 
@@ -46,7 +45,7 @@ public class MonsterMapper {
         MonsterEntity monsterEntity = modelMapper.map(monsterDTO, MonsterEntity.class);
         monsterEntity.setUserEntity(userService.findById(monsterDTO.getUserId()));
         monsterEntity.setFearActions(monsterDTO.getFearActionsIds().stream().map(fearActionService::findById).collect(Collectors.toList()));
-        monsterEntity.setRewards(monsterDTO.getRewardsIds().stream().map(rewardService::findById).collect(Collectors.toList()));
+        monsterEntity.setRewards(monsterDTO.getRewardsIds().stream().map(rewardService::findById).toList());
         return monsterEntity;
     }
 
