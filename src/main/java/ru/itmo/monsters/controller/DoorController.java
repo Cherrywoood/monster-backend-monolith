@@ -20,6 +20,7 @@ public class DoorController {
     private final DoorService doorService;
     private final DoorMapper doorMapper;
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE') or hasAuthority('SCARE ASSISTANT')")
     @GetMapping("/active")
     @ResponseStatus(HttpStatus.OK)
     public List<DoorDTO> getActiveDoors() {
@@ -30,12 +31,14 @@ public class DoorController {
                 .toList();
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public DoorDTO changeDoor(@PathVariable UUID id) {
         return doorMapper.mapEntityToDto(doorService.changeActive(id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteDoor(@PathVariable UUID id) {
