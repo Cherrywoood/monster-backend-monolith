@@ -3,12 +3,9 @@ package ru.itmo.monsters.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.monsters.dto.ChildDTO;
 import ru.itmo.monsters.dto.DoorDTO;
 import ru.itmo.monsters.mapper.DoorMapper;
-import ru.itmo.monsters.model.ChildEntity;
 import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.service.DoorService;
 

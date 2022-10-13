@@ -18,7 +18,7 @@ public class InfectedThingMapper {
                 .build();
     }
 
-    public InfectedThingEntity mapDtoToEntity(InfectedThingDTO infectedThingDTO, DoorEntity doorEntity)  {
+    public InfectedThingEntity mapDtoToEntity(InfectedThingDTO infectedThingDTO, DoorEntity doorEntity) {
         return InfectedThingEntity.builder()
                 .id(infectedThingDTO.getId())
                 .name(infectedThingDTO.getName())

@@ -6,18 +6,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.dto.ChildDTO;
-import ru.itmo.monsters.dto.ElectricBalloonDTO;
-import ru.itmo.monsters.dto.RewardDTO;
 import ru.itmo.monsters.mapper.ChildMapper;
-import ru.itmo.monsters.model.*;
+import ru.itmo.monsters.model.ChildEntity;
+import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.repository.ChildRepository;
 import ru.itmo.monsters.repository.DoorRepository;
 
-import javax.persistence.EntityExistsException;
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service

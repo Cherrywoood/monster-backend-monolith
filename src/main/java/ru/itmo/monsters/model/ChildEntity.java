@@ -1,7 +1,6 @@
 package ru.itmo.monsters.model;
 
 import lombok.*;
-import ru.itmo.monsters.enums.Gender;
 
 import javax.persistence.*;
 import java.sql.Date;

@@ -11,7 +11,6 @@ import ru.itmo.monsters.model.CityEntity;
 import ru.itmo.monsters.repository.CityRepository;
 
 import javax.persistence.EntityExistsException;
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor

@@ -31,7 +31,7 @@ public class MonsterService {
         if (monsterRepository.findByEmail(monsterDTO.getEmail()).isPresent()) {
             throw new EntityExistsException(EXC_EXIST_EMAIL + ": " + monsterDTO.getEmail());
         }
-        if(monsterRepository.findByUserId(monsterDTO.getUserId()).isPresent()){
+        if (monsterRepository.findByUserId(monsterDTO.getUserId()).isPresent()) {
             throw new EntityExistsException(EXC_EXIST_USER + ": " + monsterDTO.getUserId());
         }
         return monsterRepository.save(monsterMapper.mapDtoToEntity(monsterDTO));

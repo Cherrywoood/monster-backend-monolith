@@ -12,7 +12,6 @@ import ru.itmo.monsters.model.ElectricBalloonEntity;
 import ru.itmo.monsters.repository.ElectricBalloonRepository;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import ru.itmo.monsters.model.ElectricBalloonEntity;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository

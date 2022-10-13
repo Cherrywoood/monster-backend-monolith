@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.mapper.DoorMapper;
-import ru.itmo.monsters.model.ChildEntity;
 import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.repository.ChildRepository;
 import ru.itmo.monsters.repository.DoorRepository;
