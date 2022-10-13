@@ -16,8 +16,6 @@ import java.util.UUID;
 public class DoorService {
 
     private final DoorRepository doorRepository;
-    private final ChildService childService;
-    private final DoorMapper doorMapper;
 
     private final String EXC_MES_ID = "none door was found by id";
 

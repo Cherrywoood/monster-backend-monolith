@@ -12,7 +12,6 @@ import ru.itmo.monsters.service.DoorService;
 @Component
 public class ChildMapper {
 
-    private final DoorService doorService;
     private final ModelMapper modelMapper;
 
     public ChildDTO mapEntityToDto(ChildEntity childEntity) {
