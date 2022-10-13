@@ -39,16 +39,6 @@ public class ChildController {
         return childMapper.mapEntityToDto(childService.save(childDTO, doorEntity));
     }
 
-//    @GetMapping("/children")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ChildDTO> getChildren() {
-//        List<ChildEntity> childEntities = childService.getAll();
-//        return childEntities
-//                .stream()
-//                .map((childMapper::mapEntityToDto))
-//                .toList();
-//    }
-
     @PreAuthorize("hasAuthority('SCARE')")
     @GetMapping("/children")
     @ResponseStatus(HttpStatus.OK)
@@ -63,16 +53,6 @@ public class ChildController {
             return new ResponseEntity<>(pageMapper.mapToDto(pageChild.map(childMapper::mapEntityToDto)), HttpStatus.OK);
         }
     }
-
-//    @GetMapping("/scared")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ChildDTO> getScaredChildrenByDate(@RequestParam Date date) {
-//        List<ChildEntity> childEntities = childService.getScaredChildrenByDate(date);
-//        return childEntities
-//                .stream()
-//                .map((childMapper::mapEntityToDto))
-//                .toList();
-//    }
 
     @PreAuthorize("hasAuthority('SCARE')")
     @GetMapping("/scared")
