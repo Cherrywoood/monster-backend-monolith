@@ -36,4 +36,11 @@ public class DoorService {
     public List<DoorEntity> findAllActiveDoors() {
         return doorRepository.findAllByIsActive(true);
     }
+
+    public DoorEntity changeActive(UUID id) {
+        DoorEntity doorEntity = doorRepository.findById(id).get();
+        doorEntity.setActive(!doorEntity.isActive());
+        doorRepository.save(doorEntity);
+        return doorEntity;
+    }
 }

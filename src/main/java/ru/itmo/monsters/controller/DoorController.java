@@ -3,10 +3,7 @@ package ru.itmo.monsters.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itmo.monsters.dto.ChildDTO;
 import ru.itmo.monsters.dto.DoorDTO;
 import ru.itmo.monsters.mapper.DoorMapper;
@@ -15,6 +12,7 @@ import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.service.DoorService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +29,12 @@ public class DoorController {
                 .stream()
                 .map((doorMapper::mapEntityToDto))
                 .toList();
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DoorDTO changeDoor(@PathVariable UUID id) {
+        return doorMapper.mapEntityToDto(doorService.changeActive(id));
     }
 
 }
