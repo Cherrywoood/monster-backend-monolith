@@ -23,21 +23,21 @@ import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("monsters")
+@RequestMapping("/monsters")
 public class MonsterController {
 
     private final MonsterService monsterService;
     private final MonsterMapper monsterMapper;
     private final PageMapper<MonsterDTO> pageMapper;
 
-    @GetMapping("{monsterId}")
+    @GetMapping("/{monsterId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
     public MonsterDTO getMonster(@PathVariable UUID monsterId) {
         return monsterMapper.mapEntityToDto(monsterService.findById(monsterId));
     }
 
-    @GetMapping("rating")
+    @GetMapping("/rating")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
     public List<MonsterRatingDTO> getRating(int page, int size) {
@@ -70,7 +70,7 @@ public class MonsterController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-    @GetMapping("job")
+    @GetMapping("/job")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
     public ResponseEntity<PageDTO<MonsterDTO>> findAllByJob(@RequestParam Job job,
                                                             @RequestParam(defaultValue = "0")
@@ -85,7 +85,7 @@ public class MonsterController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-    @GetMapping("fear-action/{date}")
+    @GetMapping("/fear-action/{date}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
     public ResponseEntity<PageDTO<MonsterDTO>> findAllByFearActionDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(defaultValue = "0")
     @Min(value = 0, message = "must not be less than zero") int page,
@@ -99,7 +99,7 @@ public class MonsterController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-    @GetMapping("infection/{date}")
+    @GetMapping("/infection/{date}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER') or hasAuthority('DISINFECTOR')")
     public ResponseEntity<PageDTO<MonsterDTO>> findAllByInfectionDate(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(defaultValue = "0")
     @Min(value = 0, message = "must not be less than zero") int page,
@@ -113,21 +113,21 @@ public class MonsterController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(monsterMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-    @PatchMapping("{monsterId}")
+    @PatchMapping("/{monsterId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('RECRUITER')")
     public MonsterDTO updateJobById(@PathVariable UUID monsterId, @RequestParam Job job) {
         return monsterMapper.mapEntityToDto(monsterService.updateJobById(job, monsterId));
     }
 
-    @DeleteMapping("{monsterId}")
+    @DeleteMapping("/{monsterId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteMonster(@PathVariable UUID monsterId) {
         monsterService.delete(monsterId);
     }
 
-    @PutMapping("{monsterId}")
+    @PutMapping("/{monsterId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN')")
     public MonsterDTO putMonster(@PathVariable UUID monsterId, @Valid @RequestBody MonsterDTO monsterDTO) {

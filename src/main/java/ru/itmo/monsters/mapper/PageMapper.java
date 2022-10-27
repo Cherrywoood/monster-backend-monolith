@@ -8,14 +8,9 @@ import ru.itmo.monsters.dto.PageDTO;
 @RequiredArgsConstructor
 @Component
 public class PageMapper<T> {
-
     public PageDTO<T> mapToDto(Page<T> page) {
         return new PageDTO<>(
                 page.getContent(),
-                page.getNumber(),
-                page.getTotalPages(),
-                page.getSize(),
-                page.getNumberOfElements(),
                 page.getTotalElements(),
                 page.hasNext()
         );

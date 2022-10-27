@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
-@RequestMapping("doors")
+@RequestMapping("/doors")
 public class DoorController {
     private final DoorService doorService;
     private final DoorMapper doorMapper;

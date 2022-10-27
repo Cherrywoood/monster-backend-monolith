@@ -22,7 +22,7 @@ import java.sql.Date;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("child")
+@RequestMapping("/child")
 public class ChildController {
 
     private final ChildService childService;
@@ -40,7 +40,7 @@ public class ChildController {
     }
 
     @PreAuthorize("hasAuthority('SCARE') or hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")
-    @GetMapping("/children")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PageDTO<ChildDTO>> getChildren(@RequestParam(defaultValue = "0")
                                                          @Min(value = 0, message = "must not be less than zero") int page,

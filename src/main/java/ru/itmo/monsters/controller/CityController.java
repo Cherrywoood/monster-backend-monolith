@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("cities")
+@RequestMapping("/cities")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class CityController {
 
@@ -47,13 +47,13 @@ public class CityController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(cityMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-    @DeleteMapping("{cityId}")
+    @DeleteMapping("/{cityId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCity(@PathVariable UUID cityId) {
         cityService.delete(cityId);
     }
 
-    @PutMapping("{cityId}")
+    @PutMapping("/{cityId}")
     @ResponseStatus(HttpStatus.OK)
     public CityDTO putCity(@PathVariable UUID cityId, @Valid @RequestBody CityDTO cityDTO) {
         return cityMapper.mapEntityToDto(cityService.updateById(cityId, cityDTO));

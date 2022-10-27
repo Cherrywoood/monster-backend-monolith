@@ -13,13 +13,13 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("rewards")
+@RequestMapping("/rewards")
 public class RewardController {
 
     private final RewardService rewardService;
     private final RewardMapper rewardMapper;
 
-    @GetMapping("{rewardId}")
+    @GetMapping("/{rewardId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
     public RewardDTO getReward(@PathVariable UUID rewardId) {
@@ -33,14 +33,14 @@ public class RewardController {
         return rewardMapper.mapEntityToDto(rewardService.save(rewardDTO));
     }
 
-    @DeleteMapping("{rewardId}")
+    @DeleteMapping("/{rewardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteReward(@PathVariable UUID rewardId) {
         rewardService.delete(rewardId);
     }
 
-    @PutMapping("{rewardId}")
+    @PutMapping("/{rewardId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN')")
     public RewardDTO putReward(@PathVariable UUID rewardId, @Valid @RequestBody RewardDTO rewardDTO) {

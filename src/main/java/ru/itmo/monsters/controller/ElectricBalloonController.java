@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("electric-balloons")
+@RequestMapping("/electric-balloons")
 public class ElectricBalloonController {
 
     private final ElectricBalloonService electricBalloonService;
@@ -37,14 +37,14 @@ public class ElectricBalloonController {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.save(electricBalloonDTO));
     }
 
-    @GetMapping("{electricBalloonId}")
+    @GetMapping("/{electricBalloonId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
     public ElectricBalloonDTO getElectricBalloon(@PathVariable UUID electricBalloonId) {
         return electricBalloonMapper.mapEntityToDto(electricBalloonService.findById(electricBalloonId));
     }
 
-    @GetMapping("{date}")
+    @GetMapping("/{date}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT') or hasAuthority('RECRUITER')")
     public ResponseEntity<PageDTO<ElectricBalloonDTO>> findAllFilledByDateAndCity(@PathVariable @DateTimeFormat(fallbackPatterns = "dd-MM-yyyy") Date date, @RequestParam(required = false) UUID cityId,
                                                                                   @RequestParam(defaultValue = "0")
@@ -64,14 +64,14 @@ public class ElectricBalloonController {
         return new ResponseEntity<>(pageMapper.mapToDto(pages.map(electricBalloonMapper::mapEntityToDto)), HttpStatus.OK);
     }
 
-    @DeleteMapping("{electricBalloonId}")
+    @DeleteMapping("/{electricBalloonId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT')")
     public void deleteElectricBalloon(@PathVariable UUID electricBalloonId) {
         electricBalloonService.delete(electricBalloonId);
     }
 
-    @PutMapping("{electricBalloonId}")
+    @PutMapping("/{electricBalloonId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SCARER') or hasAuthority('SCARE ASSISTANT')")
     public ElectricBalloonDTO putElectricBalloon(@PathVariable UUID electricBalloonId, @Valid @RequestBody ElectricBalloonDTO electricBalloonDTO) {
