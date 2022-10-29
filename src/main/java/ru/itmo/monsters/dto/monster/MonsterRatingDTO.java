@@ -18,5 +18,5 @@ public class MonsterRatingDTO {
 
     @NotNull(message = "shouldn't be null")
     @Size(message = "shouldn't be less than 0")
-    private int countBalloons;
+    private Integer countBalloons;
 }

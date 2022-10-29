@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PageDTO<T> {
     private List<T> content;
-    private long totalElements;
-    private boolean hasNext;
+    private Long totalElements;
+    private Boolean hasNext;
 }

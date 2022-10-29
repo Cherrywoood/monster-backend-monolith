@@ -17,10 +17,10 @@ public class RewardDTO {
     private UUID id;
 
     @Min(value = 0, message = "shouldn't be less than 0")
-    private int balloonCount;
+    private Integer balloonCount;
 
     @Min(value = 0, message = "shouldn't be less than 0")
-    private int money;
+    private Integer money;
 
     @NotNull(message = "can be empty, but shouldn't be null")
     private List<UUID> monstersIds;

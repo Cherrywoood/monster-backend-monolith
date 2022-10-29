@@ -41,7 +41,7 @@ public class MonsterDTO {
 
     @NotNull(message = "shouldn't be null")
     @Min(value = 0, message = "shouldn't be less than 0")
-    private int salary;
+    private Integer salary;
 
     @NotNull(message = "can be empty, but shouldn't be null")
     private List<UUID> rewardsIds;
