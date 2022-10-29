@@ -23,9 +23,9 @@ public class MonsterService {
     private final ElectricBalloonRepository electricBalloonRepository;
     private final MonsterMapper monsterMapper;
 
-    private final String EXC_EXIST_EMAIL = "monster with this email already exists";
-    private final String EXC_EXIST_USER = "monster with this userId already exists";
-    private final String EXC_MES_ID = "none monster was found by id";
+    private static final String EXC_EXIST_EMAIL = "monster with this email already exists";
+    private static final String EXC_EXIST_USER = "monster with this userId already exists";
+    private static final String EXC_MES_ID = "none monster was found by id";
 
     public MonsterEntity save(MonsterDTO monsterDTO) {
         if (monsterRepository.findByEmail(monsterDTO.getEmail()).isPresent()) {
@@ -78,17 +78,17 @@ public class MonsterService {
     }
 
     public MonsterEntity updateById(UUID monsterId, MonsterDTO monsterDTO) {
-        monsterRepository.findById(monsterId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)
-        );
+        if (monsterRepository.findById(monsterId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + monsterId);
+        }
         monsterDTO.setId(monsterId);
         return monsterRepository.save(monsterMapper.mapDtoToEntity(monsterDTO));
     }
 
     public void delete(UUID monsterId) {
-        monsterRepository.findById(monsterId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + monsterId)
-        );
+        if (monsterRepository.findById(monsterId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + monsterId);
+        }
         monsterRepository.deleteById(monsterId);
     }
 }

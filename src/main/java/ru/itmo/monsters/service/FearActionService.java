@@ -17,7 +17,7 @@ public class FearActionService {
     private final FearActionRepository fearActionRepository;
     private final FearActionMapper fearActionMapper;
 
-    private final String EXC_MES_ID = "none fear action was found by id";
+    private static final String EXC_MES_ID = "none fear action was found by id";
 
     public FearActionEntity save(FearActionDTO fearActionDTO) {
         return fearActionRepository.save(fearActionMapper.mapDtoToEntity(fearActionDTO));
@@ -30,17 +30,17 @@ public class FearActionService {
     }
 
     public FearActionEntity updateById(UUID fearActionId, FearActionDTO fearActionDTO) {
-        fearActionRepository.findById(fearActionId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + fearActionId)
-        );
+        if (fearActionRepository.findById(fearActionId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + fearActionId);
+        }
         fearActionDTO.setId(fearActionId);
         return fearActionRepository.save(fearActionMapper.mapDtoToEntity(fearActionDTO));
     }
 
     public void delete(UUID fearActionId) {
-        fearActionRepository.findById(fearActionId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + fearActionId)
-        );
+        if (fearActionRepository.findById(fearActionId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + fearActionId);
+        }
         fearActionRepository.deleteById(fearActionId);
     }
 

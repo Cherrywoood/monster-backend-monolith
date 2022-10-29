@@ -43,8 +43,8 @@ public class MonsterController {
     public List<MonsterRatingDTO> getRating(int page, int size) {
         List<MonsterRatingDTO> ratingDTO = new ArrayList<>();
         Map<MonsterEntity, Integer> rating = monsterService.getRating(page, size);
-        for (MonsterEntity monster : rating.keySet()) {
-            ratingDTO.add(monsterMapper.mapEntityToRatingDTO(monster, rating.get(monster)));
+        for (Map.Entry<MonsterEntity, Integer> entryRating : rating.entrySet()) {
+            ratingDTO.add(monsterMapper.mapEntityToRatingDTO(entryRating.getKey(), entryRating.getValue()));
         }
         return ratingDTO;
     }

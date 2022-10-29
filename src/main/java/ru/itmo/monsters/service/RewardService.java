@@ -16,7 +16,7 @@ import java.util.UUID;
 public class RewardService {
 
     private static final String EXC_EXIST = "reward with such amount of money already exists";
-    private final String EXC_MES_ID = "none reward was found by id";
+    private static final String EXC_MES_ID = "none reward was found by id";
 
     private final RewardMapper rewardMapper;
     private final RewardRepository rewardRepository;
@@ -35,17 +35,17 @@ public class RewardService {
     }
 
     public RewardEntity updateById(UUID rewardId, RewardDTO rewardDTO) {
-        rewardRepository.findById(rewardId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
-        );
+        if (rewardRepository.findById(rewardId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + rewardId);
+        }
         rewardDTO.setId(rewardId);
         return rewardRepository.save(rewardMapper.mapDtoToEntity(rewardDTO));
     }
 
     public void delete(UUID rewardId) {
-        rewardRepository.findById(rewardId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + rewardId)
-        );
+        if (rewardRepository.findById(rewardId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + rewardId);
+        }
         rewardRepository.deleteById(rewardId);
     }
 }

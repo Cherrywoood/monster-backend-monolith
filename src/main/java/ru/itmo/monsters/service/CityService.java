@@ -20,9 +20,9 @@ public class CityService {
     private final CityRepository cityRepository;
     private final CityMapper cityMapper;
 
-    private final String EXC_MES_ID = "none city was found by id";
-    private final String EXC_MES_NAME = "none city was found by name";
-    private final String EXC_EXIST = "city with this name already exists";
+    private static final String EXC_MES_ID = "none city was found by id";
+    private static final String EXC_MES_NAME = "none city was found by name";
+    private static final String EXC_EXIST = "city with this name already exists";
 
 
     public CityEntity save(CityDTO cityDTO) {
@@ -33,9 +33,9 @@ public class CityService {
     }
 
     public CityEntity updateById(UUID cityId, CityDTO cityDTO) {
-        cityRepository.findById(cityId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + cityId)
-        );
+        if (cityRepository.findById(cityId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + cityId);
+        }
         cityDTO.setId(cityId);
         return cityRepository.save(cityMapper.mapDtoToEntity(cityDTO));
     }
@@ -51,9 +51,9 @@ public class CityService {
     }
 
     public void delete(UUID cityId) {
-        cityRepository.findById(cityId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + cityId)
-        );
+        if (cityRepository.findById(cityId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + cityId);
+        }
         cityRepository.deleteById(cityId);
     }
 

@@ -21,7 +21,7 @@ public class ElectricBalloonService {
     private final ElectricBalloonRepository electricBalloonRepository;
     private final ElectricBalloonMapper electricBalloonMapper;
 
-    private final String EXC_MES_ID = "none electric balloon was found by id";
+    private static final String EXC_MES_ID = "none electric balloon was found by id";
 
     public ElectricBalloonEntity save(ElectricBalloonDTO electricBalloonDTO) {
         return electricBalloonRepository.save(electricBalloonMapper.mapDtoToEntity(electricBalloonDTO));
@@ -42,17 +42,17 @@ public class ElectricBalloonService {
     }
 
     public ElectricBalloonEntity updateById(UUID electricBalloonId, ElectricBalloonDTO electricBalloonDTO) {
-        electricBalloonRepository.findById(electricBalloonId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + electricBalloonId)
-        );
+        if (electricBalloonRepository.findById(electricBalloonId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + electricBalloonId);
+        }
         electricBalloonDTO.setId(electricBalloonId);
         return electricBalloonRepository.save(electricBalloonMapper.mapDtoToEntity(electricBalloonDTO));
     }
 
     public void delete(UUID electricBalloonId) {
-        electricBalloonRepository.findById(electricBalloonId).orElseThrow(
-                () -> new NotFoundException(EXC_MES_ID + ": " + electricBalloonId)
-        );
+        if (electricBalloonRepository.findById(electricBalloonId).isEmpty()) {
+            throw new NotFoundException(EXC_MES_ID + ": " + electricBalloonId);
+        }
         electricBalloonRepository.deleteById(electricBalloonId);
     }
 }

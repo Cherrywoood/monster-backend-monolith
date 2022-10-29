@@ -14,8 +14,6 @@ import ru.itmo.monsters.service.FearActionService;
 import ru.itmo.monsters.service.RewardService;
 import ru.itmo.monsters.service.UserService;
 
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @Component
 public class MonsterMapper {
@@ -36,7 +34,7 @@ public class MonsterMapper {
     public MonsterDTO mapEntityToDto(MonsterEntity monsterEntity) {
         MonsterDTO monsterDTO = modelMapper.map(monsterEntity, MonsterDTO.class);
         monsterDTO.setUserId(monsterEntity.getUserEntity().getId());
-        monsterDTO.setFearActionsIds(monsterEntity.getFearActions().stream().map(FearActionEntity::getId).collect(Collectors.toList()));
+        monsterDTO.setFearActionsIds(monsterEntity.getFearActions().stream().map(FearActionEntity::getId).toList());
         monsterDTO.setRewardsIds(monsterEntity.getRewards().stream().map(RewardEntity::getId).toList());
         return monsterDTO;
     }
@@ -44,7 +42,7 @@ public class MonsterMapper {
     public MonsterEntity mapDtoToEntity(MonsterDTO monsterDTO) {
         MonsterEntity monsterEntity = modelMapper.map(monsterDTO, MonsterEntity.class);
         monsterEntity.setUserEntity(userService.findById(monsterDTO.getUserId()));
-        monsterEntity.setFearActions(monsterDTO.getFearActionsIds().stream().map(fearActionService::findById).collect(Collectors.toList()));
+        monsterEntity.setFearActions(monsterDTO.getFearActionsIds().stream().map(fearActionService::findById).toList());
         monsterEntity.setRewards(monsterDTO.getRewardsIds().stream().map(rewardService::findById).toList());
         return monsterEntity;
     }

@@ -11,7 +11,6 @@ import ru.itmo.monsters.mapper.ChildMapper;
 import ru.itmo.monsters.model.ChildEntity;
 import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.repository.ChildRepository;
-import ru.itmo.monsters.repository.DoorRepository;
 
 import java.sql.Date;
 import java.util.UUID;
@@ -20,6 +19,7 @@ import java.util.UUID;
 @Service
 public class ChildService {
 
+    private static final String EXC_MES_ID = "none child was found by id";
     private final ChildRepository childRepository;
     private final ChildMapper childMapper;
 
@@ -40,7 +40,7 @@ public class ChildService {
     public void delete(UUID id) {
         childRepository.delete(
                 childRepository.findById(id).orElseThrow(
-                        () -> new NotFoundException("не найдено")
+                        () -> new NotFoundException(EXC_MES_ID + ": " + id)
                 )
         );
     }

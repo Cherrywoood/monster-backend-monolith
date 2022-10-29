@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.ChildDTO;
 import ru.itmo.monsters.model.ChildEntity;
 import ru.itmo.monsters.model.DoorEntity;
-import ru.itmo.monsters.service.DoorService;
 
 @RequiredArgsConstructor
 @Component
@@ -23,15 +22,6 @@ public class ChildMapper {
                 .doorId(childEntity.getDoor().getId())
                 .build();
     }
-
-//    public ChildEntity mapDtoToEntity(ChildDTO childDTO) {
-//        return ChildEntity.builder()
-//                .name(childDTO.getName())
-//                .dob(childDTO.getDob())
-//                .gender(childDTO.getGender())
-//                .door(doorService.findById(childDTO.getDoorId()))
-//                .build();
-//    }
 
     public ChildEntity mapDtoToEntity(ChildDTO childDTO, DoorEntity doorEntity) {
         ChildEntity childEntity = modelMapper.map(childDTO, ChildEntity.class);
