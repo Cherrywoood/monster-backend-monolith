@@ -25,6 +25,5 @@ public class ChildDTO {
     @NotNull(message = "shouldn't be null")
     private String gender;
 
-    @NotNull(message = "shouldn't be null")
     private UUID doorId;
 }

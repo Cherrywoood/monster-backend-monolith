@@ -6,7 +6,6 @@ import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.repository.DoorRepository;
 
-import javax.persistence.EntityExistsException;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,6 @@ public class DoorService {
     private final DoorRepository doorRepository;
 
     private static final String EXC_MES_ID = "none door was found by id";
-    private static final String EXC_EXIST = "door with this id exists";
 
     public DoorEntity findById(UUID doorId) {
         return doorRepository.findById(doorId).orElseThrow(
@@ -25,11 +23,8 @@ public class DoorService {
         );
     }
 
-    public DoorEntity save(UUID id) {
-        if (doorRepository.findById(id).isPresent()) {
-            throw new EntityExistsException(EXC_EXIST);
-        }
-        return doorRepository.save(new DoorEntity());
+    public DoorEntity save(DoorEntity doorEntity) {
+        return doorRepository.save(doorEntity);
     }
 
     public List<DoorEntity> findAllActiveDoors() {
@@ -52,9 +47,4 @@ public class DoorService {
                 )
         );
     }
-
-    public DoorEntity findDoorOrNull(UUID doorId) {
-        return doorRepository.findById(doorId).orElse(null);
-    }
-
 }

@@ -1,6 +1,8 @@
 package ru.itmo.monsters.model;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +31,7 @@ public class CityEntity {
     private String name;
 
     @OneToMany(mappedBy = "cityEntity")
+    @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<ElectricBalloonEntity> balloons;
 }

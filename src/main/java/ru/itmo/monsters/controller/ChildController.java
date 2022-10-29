@@ -11,9 +11,7 @@ import ru.itmo.monsters.dto.PageDTO;
 import ru.itmo.monsters.mapper.ChildMapper;
 import ru.itmo.monsters.mapper.PageMapper;
 import ru.itmo.monsters.model.ChildEntity;
-import ru.itmo.monsters.model.DoorEntity;
 import ru.itmo.monsters.service.ChildService;
-import ru.itmo.monsters.service.DoorService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -27,7 +25,6 @@ public class ChildController {
 
     private final ChildService childService;
     private final ChildMapper childMapper;
-    private final DoorService doorService;
     private final PageMapper<ChildDTO> pageMapper;
 
 
@@ -35,8 +32,7 @@ public class ChildController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ChildDTO addChild(@Valid @RequestBody ChildDTO childDTO) {
-        DoorEntity doorEntity = doorService.save(childDTO.getDoorId());
-        return childMapper.mapEntityToDto(childService.save(childDTO, doorEntity));
+        return childMapper.mapEntityToDto(childService.save(childDTO));
     }
 
     @PreAuthorize("hasAuthority('SCARE') or hasAuthority('ADMIN') or hasAuthority('SCARE ASSISTANT')")

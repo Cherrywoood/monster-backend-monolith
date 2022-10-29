@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itmo.monsters.controller.exception.NotFoundException;
 import ru.itmo.monsters.dto.ChildDTO;
 import ru.itmo.monsters.mapper.ChildMapper;
@@ -21,9 +22,18 @@ public class ChildService {
 
     private static final String EXC_MES_ID = "none child was found by id";
     private final ChildRepository childRepository;
+    private final DoorService doorService;
     private final ChildMapper childMapper;
 
-    public ChildEntity save(ChildDTO childDTO, DoorEntity doorEntity) {
+    @Transactional
+    public ChildEntity save(ChildDTO childDTO) {
+        DoorEntity doorEntity;
+        UUID doorId = childDTO.getDoorId();
+        if (doorId == null) {
+            doorEntity = doorService.save(new DoorEntity());
+        } else {
+            doorEntity = doorService.findById(doorId);
+        }
         ChildEntity childEntity = childMapper.mapDtoToEntity(childDTO, doorEntity);
         return childRepository.save(childEntity);
     }
