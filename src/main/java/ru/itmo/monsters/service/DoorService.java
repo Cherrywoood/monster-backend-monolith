@@ -53,4 +53,8 @@ public class DoorService {
         );
     }
 
+    public DoorEntity findDoorOrNull(UUID doorId) {
+        return doorRepository.findById(doorId).orElse(null);
+    }
+
 }

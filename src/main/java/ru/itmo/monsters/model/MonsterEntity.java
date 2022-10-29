@@ -73,6 +73,8 @@ public class MonsterEntity {
     private List<RewardEntity> rewards;
 
     @OneToMany(mappedBy = "monster")
+    @Fetch(FetchMode.SUBSELECT)
+    @ToString.Exclude
     private List<InfectionEntity> infections;
 
     @OneToMany(mappedBy = "monsterEntity")

@@ -1,6 +1,8 @@
 package ru.itmo.monsters.model;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -31,6 +33,7 @@ public class RewardEntity {
     private int money;
 
     @ManyToMany(mappedBy = "rewards")
+    @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<MonsterEntity> monsters;
 }

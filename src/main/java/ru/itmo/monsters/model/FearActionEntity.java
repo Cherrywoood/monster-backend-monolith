@@ -1,6 +1,8 @@
 package ru.itmo.monsters.model;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,6 +40,7 @@ public class FearActionEntity {
     private Date date;
 
     @OneToMany(mappedBy = "fearActionEntity")
+    @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<ElectricBalloonEntity> balloons;
 }

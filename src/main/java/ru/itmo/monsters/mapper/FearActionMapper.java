@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.itmo.monsters.dto.FearActionDTO;
 import ru.itmo.monsters.model.ElectricBalloonEntity;
 import ru.itmo.monsters.model.FearActionEntity;
+import ru.itmo.monsters.service.DoorService;
 import ru.itmo.monsters.service.ElectricBalloonService;
 import ru.itmo.monsters.service.MonsterService;
 
@@ -13,12 +14,13 @@ import ru.itmo.monsters.service.MonsterService;
 public class FearActionMapper {
 
     private final MonsterService monsterService;
-    //private final DoorService doorService;
+    private final DoorService doorService;
     private final ElectricBalloonService electricBalloonService;
 
     @Autowired
-    public FearActionMapper(@Lazy MonsterService monsterService, @Lazy ElectricBalloonService electricBalloonService) {
+    public FearActionMapper(@Lazy MonsterService monsterService, DoorService doorService, @Lazy ElectricBalloonService electricBalloonService) {
         this.monsterService = monsterService;
+        this.doorService = doorService;
         this.electricBalloonService = electricBalloonService;
     }
 
@@ -26,7 +28,7 @@ public class FearActionMapper {
         return FearActionDTO.builder()
                 .id(fearActionEntity.getId())
                 .monsterId(fearActionEntity.getMonsterEntity().getId())
-                //.doorId(fearActionEntity.getDoorEntity().getId())
+                .doorId(fearActionEntity.getDoorEntity().getId())
                 .date(fearActionEntity.getDate())
                 .balloonsIds(fearActionEntity.getBalloons().stream().map(ElectricBalloonEntity::getId).toList())
                 .build();
@@ -36,7 +38,7 @@ public class FearActionMapper {
         return FearActionEntity.builder()
                 .id(fearActionDTO.getId())
                 .monsterEntity(monsterService.findById(fearActionDTO.getMonsterId()))
-                //.doorEntity(doorService.findById(fearActionDTO.getDoorId()))
+                .doorEntity(doorService.findById(fearActionDTO.getDoorId()))
                 .date(fearActionDTO.getDate())
                 .balloons(fearActionDTO.getBalloonsIds().stream().map(electricBalloonService::findById).toList())
                 .build();
