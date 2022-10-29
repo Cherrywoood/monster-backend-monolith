@@ -21,5 +21,5 @@ public class DoorEntity {
     private UUID id;
 
     @Column(name = "status", nullable = false)
-    private boolean active;
+    private boolean isActive;
 }

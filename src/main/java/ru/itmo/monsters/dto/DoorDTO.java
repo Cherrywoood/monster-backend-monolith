@@ -13,5 +13,5 @@ import java.util.UUID;
 public class DoorDTO {
 
     private UUID id;
-    private Boolean active;
+    private Boolean isActive;
 }
