@@ -12,14 +12,14 @@ public class DoorMapper {
     public DoorDTO mapEntityToDto(DoorEntity doorEntity) {
         return DoorDTO.builder()
                 .id(doorEntity.getId())
-                .is_active(doorEntity.isActive())
+                .active(doorEntity.isActive())
                 .build();
     }
 
     public DoorEntity mapDtoToEntity(DoorDTO doorDTO) {
         return DoorEntity.builder()
                 .id(doorDTO.getId())
-                .isActive(doorDTO.is_active())
+                .active(doorDTO.getActive())
                 .build();
     }
 }

@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface DoorRepository extends JpaRepository<DoorEntity, UUID> {
 
-    List<DoorEntity> findAllByIsActive(boolean isActive);
+    List<DoorEntity> findAllByActive(boolean isActive);
 }

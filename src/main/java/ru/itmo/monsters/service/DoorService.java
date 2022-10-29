@@ -3,9 +3,7 @@ package ru.itmo.monsters.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itmo.monsters.controller.exception.NotFoundException;
-import ru.itmo.monsters.mapper.DoorMapper;
 import ru.itmo.monsters.model.DoorEntity;
-import ru.itmo.monsters.repository.ChildRepository;
 import ru.itmo.monsters.repository.DoorRepository;
 
 import java.util.List;
@@ -17,7 +15,7 @@ public class DoorService {
 
     private final DoorRepository doorRepository;
 
-    private final String EXC_MES_ID = "none door was found by id";
+    private static final String EXC_MES_ID = "none door was found by id";
 
 
     public DoorEntity findById(UUID doorId) {
@@ -34,7 +32,7 @@ public class DoorService {
     }
 
     public List<DoorEntity> findAllActiveDoors() {
-        return doorRepository.findAllByIsActive(true);
+        return doorRepository.findAllByActive(true);
     }
 
     public DoorEntity changeActive(UUID id) {
